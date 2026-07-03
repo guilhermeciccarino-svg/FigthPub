@@ -10,48 +10,47 @@ include 'header.php';
 
 <main style="max-width: 1000px; margin: 0 auto; padding: 20px;">
 
-    <div class="graduation-header" style="text-align: center; margin-bottom: 30px;">
+    <div class="graduation-header">
         <h1>🥋 Dia da Graduação</h1>
         <p>Parabéns aos alunos que estão se preparando para o exame de faixa! Este é um momento especial para celebrar seu progresso, suor e conquistas no tatame.</p>
     </div>
-    
+
     <?php if (isset($_SESSION['msg_sucesso'])): ?>
-        <div style="background: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border-radius: 5px; text-align: center; border: 1px solid #c3e6cb;">
+        <div class="alert-success" style="text-align:center;">
             <strong>Sucesso!</strong> <?php echo $_SESSION['msg_sucesso']; ?>
         </div>
         <?php unset($_SESSION['msg_sucesso']); // Limpa a mensagem depois de mostrar ?>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['msg_erro'])): ?>
-        <div style="background: #f8d7da; color: #721c24; padding: 15px; margin-bottom: 20px; border-radius: 5px; text-align: center; border: 1px solid #f5c6cb;">
+        <div class="alert-danger" style="text-align:center;">
             <strong>Erro:</strong> <?php echo $_SESSION['msg_erro']; ?>
         </div>
         <?php unset($_SESSION['msg_erro']); // Limpa a mensagem depois de mostrar ?>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'instructor'): ?>
-        
-        <div class="graduation-card" style="border-top-color: #4CAF50;"> 
+
+        <div class="graduation-card" style="border-top-color: #4CAF50;">
             <h2>Painel de Graduação (Área do Instrutor)</h2>
             <p>Preencha os dados abaixo para registar a nova graduação do seu aluno.</p>
-            
+
             <form action="process_graduation.php" method="POST" class="graduation-form">
-                
+
                 <div class="form-group">
                     <label for="student_id">Selecione o Aluno:</label>
                     <select name="student_id" id="student_id" required>
                         <option value="">Escolha um aluno...</option>
-                        
+
                         <?php
                         // Junta a tabela users com a tabela students para obter o full_name
-                        $sql = "SELECT users.id, students.full_name 
-                                FROM users 
-                                JOIN students ON users.id = students.user_id 
-                                WHERE users.role = 'user' 
+                        $sql = "SELECT users.id, students.full_name
+                                FROM users
+                                JOIN students ON users.id = students.user_id
+                                WHERE users.role = 'user'
                                 ORDER BY students.full_name ASC";
-                        
-                        // CORREÇÃO: Alterado de $conn para $db
-                        $result = $db->query($sql); 
+
+                        $result = $db->query($sql);
 
                         if ($result) {
                             $tem_alunos = false;
@@ -66,7 +65,7 @@ include 'header.php';
                             echo "<option value=''>Erro ao carregar alunos</option>";
                         }
                         ?>
-                        
+
                     </select>
                 </div>
 
@@ -100,34 +99,34 @@ include 'header.php';
         </div>
 
    <?php else: ?>
-        
-        <div class="announcement-banner" style="background: #e9ecef; border-left: 5px solid #d32f2f; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
-            <strong>📢 Próximas Graduações:</strong> As datas dos próximos exames de faixa serão anunciadas pelo seu Mestre. Fique atento ao mural da academia!
+
+        <div class="announcement-banner">
+            📢 <strong>Próximas Graduações:</strong> As datas dos próximos exames de faixa serão anunciadas pelo seu Mestre. Fique atento ao mural da academia!
         </div>
 
-        <div class="graduation-card" style="border-top-color: #ffd700;"> 
-            <h3 style="text-align: center; color: #333;">🏆 Mural de Honra: Últimas Graduações</h3>
-            <p style="text-align: center; color: #666; margin-bottom: 20px;">Parabéns aos nossos atletas pelo suor e dedicação!</p>
-            
+        <div class="graduation-card" style="border-top-color: var(--gold);">
+            <h3 style="text-align: center;">🏆 Mural de Honra: Últimas Graduações</h3>
+            <p style="text-align: center; color: #888; margin-bottom: 20px;">Parabéns aos nossos atletas pelo suor e dedicação!</p>
+
             <div style="overflow-x: auto;">
-                <table class="table-graduations" style="width: 100%; border-collapse: collapse;">
+                <table class="table-graduations">
                     <thead>
-                        <tr style="background-color: #f4f4f4;">
-                            <th style="padding: 10px; border-bottom: 2px solid #ddd;">Data</th>
-                            <th style="padding: 10px; border-bottom: 2px solid #ddd;">Atleta</th>
-                            <th style="padding: 10px; border-bottom: 2px solid #ddd;">Arte Marcial</th>
-                            <th style="padding: 10px; border-bottom: 2px solid #ddd;">Nova Faixa/Grau</th>
-                            <th style="padding: 10px; border-bottom: 2px solid #ddd;">Avaliador</th>
+                        <tr>
+                            <th>Data</th>
+                            <th>Atleta</th>
+                            <th>Arte Marcial</th>
+                            <th>Nova Faixa/Grau</th>
+                            <th>Avaliador</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         // Prepara a query para buscar as últimas 10 graduações
-                        $sql_mural = "SELECT 
-                                        g.martial_art, 
-                                        g.belt_rank, 
-                                        strftime('%d/%m/%Y', g.graduation_date) as data_formatada, 
-                                        s.full_name AS student_name, 
+                        $sql_mural = "SELECT
+                                        g.martial_art,
+                                        g.belt_rank,
+                                        strftime('%d/%m/%Y', g.graduation_date) as data_formatada,
+                                        s.full_name AS student_name,
                                         inst.name AS instructor_name
                                       FROM graduations g
                                       JOIN students s ON g.student_id = s.user_id
@@ -135,27 +134,26 @@ include 'header.php';
                                       JOIN instructors inst ON u.instructor_id = inst.id
                                       ORDER BY g.graduation_date DESC
                                       LIMIT 10";
-                        
-                        // Executa a query
-                        $result_mural = $db->query($sql_mural); 
-                        
+
+                        $result_mural = $db->query($sql_mural);
+
                         $tem_graduacao = false;
 
                         if ($result_mural) {
                             while($row = $result_mural->fetchArray(SQLITE3_ASSOC)) {
                                 $tem_graduacao = true;
                                 echo "<tr>";
-                                echo "<td style='padding: 10px; border-bottom: 1px solid #ddd; text-align: center;'>" . htmlspecialchars($row['data_formatada']) . "</td>";
-                                echo "<td style='padding: 10px; border-bottom: 1px solid #ddd; text-align: center;'><strong>" . htmlspecialchars($row['student_name']) . "</strong></td>";
-                                echo "<td style='padding: 10px; border-bottom: 1px solid #ddd; text-align: center;'>" . htmlspecialchars($row['martial_art']) . "</td>";
-                                echo "<td style='padding: 10px; border-bottom: 1px solid #ddd; text-align: center;'><span class='badge-faixa'>" . htmlspecialchars($row['belt_rank']) . "</span></td>";
-                                echo "<td style='padding: 10px; border-bottom: 1px solid #ddd; text-align: center;'>Prof. " . htmlspecialchars($row['instructor_name']) . "</td>";
+                                echo "<td style='text-align: center;'>" . htmlspecialchars($row['data_formatada']) . "</td>";
+                                echo "<td style='text-align: center;'><strong>" . htmlspecialchars($row['student_name']) . "</strong></td>";
+                                echo "<td style='text-align: center;'>" . htmlspecialchars($row['martial_art']) . "</td>";
+                                echo "<td style='text-align: center;'><span class='badge-faixa'>" . htmlspecialchars($row['belt_rank']) . "</span></td>";
+                                echo "<td style='text-align: center;'>Prof. " . htmlspecialchars($row['instructor_name']) . "</td>";
                                 echo "</tr>";
                             }
                         }
 
                         if (!$tem_graduacao) {
-                            echo "<tr><td colspan='5' style='text-align: center; padding: 20px;'>Ainda não há graduações registadas neste semestre.</td></tr>";
+                            echo "<tr><td colspan='5' style='text-align: center; padding: 20px; color: var(--text-muted);'>Ainda não há graduações registadas neste semestre.</td></tr>";
                         }
                         ?>
                     </tbody>
@@ -163,7 +161,7 @@ include 'header.php';
             </div>
         </div>
 
-        <div class="graduation-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
+        <div class="graduation-content" style="margin-top: 30px;">
             <div class="graduation-card">
                 <h3>Como se Preparar</h3>
                 <ul>
@@ -173,7 +171,7 @@ include 'header.php';
                 </ul>
             </div>
 
-            <div class="graduation-card" style="border-top-color: #d32f2f;">
+            <div class="graduation-card" style="border-top-color: var(--primary);">
                 <h3>Requisitos Obrigatórios</h3>
                 <ul>
                     <li>Presença mínima de 80% nas aulas do semestre</li>
@@ -182,11 +180,11 @@ include 'header.php';
                 </ul>
             </div>
         </div>
-        
+
     <?php endif; ?>
 </main>
 
-<?php 
+<?php
 $db->close();
-include 'footer.php'; 
+include 'footer.php';
 ?>

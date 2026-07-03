@@ -664,7 +664,7 @@ if ($role == 'instructor') { $badge_class = 'badge-instructor'; $badge_label = '
                 $ac_list = $db->query("SELECT name FROM academies ORDER BY name LIMIT 5");
                 $has_ac = false;
                 while ($ac = $ac_list->fetchArray(SQLITE3_ASSOC)) { $has_ac = true; ?>
-                <div style="padding:0.6rem 0; border-bottom:1px solid #f5f5f5; font-size:0.95rem; color:#333;">
+                <div style="padding:0.6rem 0; border-bottom:1px solid #262626; font-size:0.95rem; color:#ccc;">
                     🏟️ <?php echo htmlspecialchars($ac['name']); ?>
                 </div>
                 <?php }
@@ -714,7 +714,7 @@ if ($role == 'instructor') { $badge_class = 'badge-instructor'; $badge_label = '
             </div>
             <div class="dash-panel-body">
                 <div class="dash-shortcuts">
-                    <a href="painel_instrutor.php" class="dash-shortcut"><span>📋</span><small>Painel</small></a>
+                    <a href="painel_instructor.php" class="dash-shortcut"><span>📋</span><small>Painel</small></a>
                     <a href="instructor_attendance.php" class="dash-shortcut"><span>✅</span><small>Presenças</small></a>
                     <a href="manage_students.php" class="dash-shortcut"><span>👥</span><small>Alunos</small></a>
                     <a href="graduation.php" class="dash-shortcut"><span>🥋</span><small>Graduações</small></a>
@@ -727,7 +727,7 @@ if ($role == 'instructor') { $badge_class = 'badge-instructor'; $badge_label = '
         <div class="dash-panel">
             <div class="dash-panel-header">
                 <h2>📅 As Minhas Aulas</h2>
-                <a href="painel_instrutor.php">Gerir grade →</a>
+                <a href="painel_instructor.php">Gerir grade →</a>
             </div>
             <div class="dash-panel-body">
                 <?php if ($profile):
@@ -874,7 +874,7 @@ if ($role == 'instructor') { $badge_class = 'badge-instructor'; $badge_label = '
                     <span class="badge-faixa" style="align-self:flex-start; font-size:1rem; padding:6px 16px;">
                         <?php echo htmlspecialchars($ultima_grad['belt_rank']); ?>
                     </span>
-                    <p style="font-family:'Oswald',sans-serif; font-size:1.4rem; color:#111; margin:0; text-transform:uppercase;">
+                    <p style="font-family:'Oswald',sans-serif; font-size:1.4rem; color:#fff; margin:0; text-transform:uppercase;">
                         <?php echo htmlspecialchars($ultima_grad['martial_art']); ?>
                     </p>
                     <p style="color:#888; font-size:0.85rem; margin:0;">
@@ -919,7 +919,7 @@ if ($role == 'instructor') { $badge_class = 'badge-instructor'; $badge_label = '
             <div class="dash-panel-body">
                 <?php if ($ultima_pres): ?>
                 <div style="display:flex; flex-direction:column; gap:0.5rem;">
-                    <p style="font-family:'Oswald',sans-serif; font-size:1.3rem; color:#111; margin:0; text-transform:uppercase;">
+                    <p style="font-family:'Oswald',sans-serif; font-size:1.3rem; color:#fff; margin:0; text-transform:uppercase;">
                         <?php echo htmlspecialchars($ultima_pres['class_type']); ?>
                     </p>
                     <p style="color:#d32f2f; font-weight:bold; font-size:0.95rem; margin:0;">

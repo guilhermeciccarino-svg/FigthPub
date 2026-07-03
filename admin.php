@@ -168,7 +168,7 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
                 <textarea name="event_description" placeholder="Escreva uma breve descrição sobre a importância deste torneio..." required></textarea>
             </div>
 
-            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 1.5rem 0;">
+            <hr style="border: 0; border-top: 1px dashed #333; margin: 1.5rem 0;">
             <p style="color: #d32f2f; font-weight: bold; margin-bottom: 10px;">👇 Dica: Nas caixas abaixo, pressione ENTER para criar um novo tópico/linha!</p>
 
             <div class="form-group">
@@ -298,9 +298,9 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
                 <textarea name="bio" required></textarea>
             </div>
 
-            <hr style="border: 0; border-top: 1px solid #ddd; margin: 1.5rem 0;">
+            <hr style="border: 0; border-top: 1px solid #333; margin: 1.5rem 0;">
             
-            <h4 style="margin-bottom: 1rem; color: #111;">Dados de Acesso (Login)</h4>
+            <h4 style="margin-bottom: 1rem; color: #fff;">Dados de Acesso (Login)</h4>
             <div class="form-grid-3">
                 <input type="text" name="username" placeholder="Usuário" required>
                 <input type="email" name="email" placeholder="Email" required>
@@ -348,7 +348,7 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
 
     <div class="admin-section section-schedules">
         <h2>Supervisão de Horários</h2>
-        <p style="color: #666; margin-bottom: 1.5rem;"><em>Nota: Novos horários devem ser adicionados pelos próprios instrutores em seus painéis.</em></p>
+        <p style="color: #999; margin-bottom: 1.5rem;"><em>Nota: Novos horários devem ser adicionados pelos próprios instrutores em seus painéis.</em></p>
 
         <div style="overflow-x: auto;">
             <table class="table">

@@ -99,7 +99,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user') {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle">Instrutor <span class="arrow">▼</span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="painel_instrutor.php">Painel do Instrutor</a></li>
+                                <li><a href="painel_instructor.php">Painel do Instrutor</a></li>
                                 <li><a href="instructor_attendance.php">Presenças</a></li>
                                 <li><a href="manage_students.php">Alunos</a></li>
                                 <li><a href="user_profiles.php">Perfil</a></li>

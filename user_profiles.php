@@ -69,33 +69,33 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
     <?php endif; ?>
 
     <!-- ══ CARD DE PERFIL ══ -->
-    <div class="profile-card" style="border-left:8px solid #111; margin-bottom:2rem;">
+    <div class="profile-card" style="margin-bottom:2rem;">
         <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
             <div class="profile-avatar" onclick="abrirModalOpcoesAvatar()" title="Clique para alterar"
                  style="font-size:60px; width:100px; height:100px; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s;"
-                 onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.2)';"
+                 onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 14px rgba(211,47,47,0.35)';"
                  onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
                 <?php if (!empty($user['avatar'])): ?>
-                    <img src="<?php echo htmlspecialchars($user['avatar']); ?>" alt="Avatar" style="width:100%; height:100%; object-fit:cover;">
+                    <img src="<?php echo htmlspecialchars($user['avatar']); ?>" alt="Avatar" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
                 <?php else: ?>
                     <?php echo $avatar_icon; ?>
                 <?php endif; ?>
             </div>
-            <small style="color:#888; font-size:0.75rem; font-weight:bold; cursor:pointer;" onclick="abrirModalOpcoesAvatar()">ALTERAR FOTO</small>
+            <small style="color:#999; font-size:0.75rem; font-weight:bold; cursor:pointer;" onclick="abrirModalOpcoesAvatar()">ALTERAR FOTO</small>
         </div>
         <div class="profile-info">
             <h2 style="margin:0; font-size:2rem; border:none;">
                 <?php echo !empty($user['full_name']) ? htmlspecialchars($user['full_name']) : htmlspecialchars($user['username']); ?>
             </h2>
-            <p style="margin:5px 0; color:#666;">
-                <strong>Usuário:</strong> @<?php echo htmlspecialchars($user['username']); ?> &nbsp;|&nbsp;
-                <strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?>
+            <p style="margin:5px 0; color:#999;">
+                <strong style="color:#ccc;">Usuário:</strong> @<?php echo htmlspecialchars($user['username']); ?> &nbsp;|&nbsp;
+                <strong style="color:#ccc;">Email:</strong> <?php echo htmlspecialchars($user['email']); ?>
             </p>
             <span class="role-badge <?php echo $role_class; ?>" style="margin-top:8px;">
                 <?php echo $role_display; ?>
             </span>
             <?php if (!empty($user['academy_name'])): ?>
-            <span style="display:inline-block; margin-left:8px; background:#111; color:#fff; padding:4px 12px; border-radius:20px; font-size:0.85rem;">
+            <span class="profile-academy-badge">
                 🏟️ <?php echo htmlspecialchars($user['academy_name']); ?>
             </span>
             <?php endif; ?>
@@ -116,25 +116,21 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
 
     <!-- ══ DADOS PESSOAIS (só para alunos) ══ -->
     <?php if ($user['role'] == 'user'): ?>
-    <div style="background:#fff; padding:2rem; border-top:5px solid #28a745; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.05); margin-bottom:2rem;">
-        <h3 style="margin-top:0; font-family:'Oswald',sans-serif; text-transform:uppercase; border-bottom:2px solid #eee; padding-bottom:10px; margin-bottom:20px;">
-            📄 Dados Pessoais
-        </h3>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:15px; color:#444;">
-            <p style="margin:0; background:#f9f9f9; padding:12px; border-radius:5px;"><strong>Nº Documento (CC):</strong><br><?php echo htmlspecialchars($user['CC'] ?? 'N/A'); ?></p>
-            <p style="margin:0; background:#f9f9f9; padding:12px; border-radius:5px;"><strong>Data de Nascimento:</strong><br><?php echo !empty($user['birth_date']) ? date('d/m/Y', strtotime($user['birth_date'])) : 'N/A'; ?></p>
-            <p style="margin:0; background:#f9f9f9; padding:12px; border-radius:5px;"><strong>Telemóvel:</strong><br><?php echo htmlspecialchars($user['phone'] ?? 'N/A'); ?></p>
-            <p style="margin:0; background:#f9f9f9; padding:12px; border-radius:5px;"><strong>Contacto de Emergência:</strong><br><?php echo htmlspecialchars($user['emergency_contact'] ?? 'N/A'); ?></p>
+    <div class="admin-section" style="border-top: 5px solid #28a745;">
+        <h3 style="margin-top:0;">📄 Dados Pessoais</h3>
+        <div class="info-kv-grid">
+            <p class="info-kv-item"><strong>Nº Documento (CC)</strong><?php echo htmlspecialchars($user['CC'] ?? 'N/A'); ?></p>
+            <p class="info-kv-item"><strong>Data de Nascimento</strong><?php echo !empty($user['birth_date']) ? date('d/m/Y', strtotime($user['birth_date'])) : 'N/A'; ?></p>
+            <p class="info-kv-item"><strong>Telemóvel</strong><?php echo htmlspecialchars($user['phone'] ?? 'N/A'); ?></p>
+            <p class="info-kv-item"><strong>Contacto de Emergência</strong><?php echo htmlspecialchars($user['emergency_contact'] ?? 'N/A'); ?></p>
         </div>
     </div>
     <?php endif; ?>
 
     <!-- ══ HISTÓRICO DE GRADUAÇÕES ══ -->
-    <div id="historico" style="background:#fff; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.05); margin-bottom:2rem; overflow:hidden;">
-        <div class="dash-panel-header" style="padding:1.2rem 1.5rem; border-bottom:1px solid #f0f0f0;">
-            <h2 style="font-family:'Oswald',sans-serif; font-size:1.1rem; text-transform:uppercase; color:#111; border:none; margin:0; letter-spacing:1px;">
-                🥋 Histórico de Graduações
-            </h2>
+    <div id="historico" class="dash-panel" style="margin-bottom:2rem; overflow:hidden;">
+        <div class="dash-panel-header">
+            <h2>🥋 Histórico de Graduações</h2>
             <span style="font-size:0.8rem; color:#888;"><?php echo $total_grads; ?> no total</span>
         </div>
         <?php
@@ -142,9 +138,9 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
         while ($g = $res_grads->fetchArray(SQLITE3_ASSOC)):
             $tem_grad = true;
         ?>
-        <div style="display:flex; align-items:center; gap:1rem; padding:1rem 1.5rem; border-bottom:1px solid #f5f5f5; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:1rem; padding:1rem 1.5rem; border-bottom:1px solid var(--card-border); flex-wrap:wrap;">
             <span class="badge-faixa"><?php echo htmlspecialchars($g['belt_rank']); ?></span>
-            <strong style="color:#111; font-size:0.95rem;"><?php echo htmlspecialchars($g['martial_art']); ?></strong>
+            <strong style="color:#fff; font-size:0.95rem;"><?php echo htmlspecialchars($g['martial_art']); ?></strong>
             <span style="color:#888; font-size:0.85rem; margin-left:auto; white-space:nowrap;">
                 Prof. <?php echo htmlspecialchars($g['instructor_name']); ?> &middot; <?php echo $g['data_fmt']; ?>
             </span>
@@ -156,24 +152,22 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
     </div>
 
     <!-- ══ HISTÓRICO DE PRESENÇAS ══ -->
-    <div id="presencas" style="background:#fff; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.05); margin-bottom:2rem; overflow:hidden;">
-        <div class="dash-panel-header" style="padding:1.2rem 1.5rem; border-bottom:1px solid #f0f0f0;">
-            <h2 style="font-family:'Oswald',sans-serif; font-size:1.1rem; text-transform:uppercase; color:#111; border:none; margin:0; letter-spacing:1px;">
-                📋 Histórico de Presenças
-            </h2>
+    <div id="presencas" class="dash-panel" style="margin-bottom:2rem; overflow:hidden;">
+        <div class="dash-panel-header">
+            <h2>📋 Histórico de Presenças</h2>
             <span style="font-size:0.8rem; color:#888;"><?php echo $total_pres; ?> no total</span>
         </div>
 
         <?php if ($total_pres > 0): ?>
         <div style="overflow-x:auto;">
-            <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+            <table class="table" style="width:100%; font-size:0.9rem;">
                 <thead>
-                    <tr style="background:#f8f8f8; text-transform:uppercase; font-size:0.75rem; letter-spacing:1px; color:#888;">
-                        <th style="padding:12px 16px; text-align:left;">Data</th>
-                        <th style="padding:12px 16px; text-align:left;">Tipo de Aula</th>
-                        <th style="padding:12px 16px; text-align:left;">Dia</th>
-                        <th style="padding:12px 16px; text-align:left;">Hora</th>
-                        <th style="padding:12px 16px; text-align:left;">Academia</th>
+                    <tr>
+                        <th>Data</th>
+                        <th>Tipo de Aula</th>
+                        <th>Dia</th>
+                        <th>Hora</th>
+                        <th>Academia</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -183,22 +177,20 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
                     $count++;
                     $hide = $count > 10 ? 'class="pres-extra" style="display:none;"' : '';
                 ?>
-                    <tr <?php echo $hide; ?> style="border-bottom:1px solid #f5f5f5;">
-                        <td style="padding:12px 16px; font-weight:bold; color:#111;"><?php echo date('d/m/Y', strtotime($p['class_date'])); ?></td>
-                        <td style="padding:12px 16px; color:#333;"><?php echo htmlspecialchars($p['class_type']); ?></td>
-                        <td style="padding:12px 16px; color:#666;"><?php echo htmlspecialchars($p['day']); ?></td>
-                        <td style="padding:12px 16px; color:#d32f2f; font-weight:bold;"><?php echo htmlspecialchars($p['time']); ?></td>
-                        <td style="padding:12px 16px; color:#666;"><?php echo htmlspecialchars($p['academy_name']); ?></td>
+                    <tr <?php echo $hide; ?>>
+                        <td style="font-weight:bold; color:#fff;"><?php echo date('d/m/Y', strtotime($p['class_date'])); ?></td>
+                        <td><?php echo htmlspecialchars($p['class_type']); ?></td>
+                        <td><?php echo htmlspecialchars($p['day']); ?></td>
+                        <td style="color:var(--primary); font-weight:bold;"><?php echo htmlspecialchars($p['time']); ?></td>
+                        <td><?php echo htmlspecialchars($p['academy_name']); ?></td>
                     </tr>
                 <?php endwhile; ?>
                 </tbody>
             </table>
         </div>
         <?php if ($total_pres > 10): ?>
-        <div style="text-align:center; padding:1rem; border-top:1px solid #f0f0f0;">
-            <button id="btn-ver-mais" onclick="verMaisPresencas()" style="background:none; border:2px solid #111; color:#111; font-family:'Oswald',sans-serif; font-size:0.85rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:8px 20px; border-radius:4px; cursor:pointer; transition:all 0.2s;"
-                onmouseover="this.style.background='#111'; this.style.color='#fff';"
-                onmouseout="this.style.background='none'; this.style.color='#111';">
+        <div style="text-align:center; padding:1rem; border-top:1px solid var(--card-border);">
+            <button id="btn-ver-mais" onclick="verMaisPresencas()" class="btn-outline">
                 Ver todas as <?php echo $total_pres; ?> presenças ↓
             </button>
         </div>
@@ -210,8 +202,8 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
     </div>
 
     <!-- ══ ATUALIZAR CONTA ══ -->
-    <form method="POST" action="update_profile.php" style="background:#fff; padding:2rem; border-top:5px solid #111; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.05); margin:0;">
-        <h3 style="margin-top:0; font-family:'Oswald',sans-serif; text-transform:uppercase; border-bottom:2px solid #eee; padding-bottom:10px; margin-bottom:20px;">⚙️ Atualizar Dados de Acesso</h3>
+    <form method="POST" action="update_profile.php" class="admin-section" style="margin:0;">
+        <h3 style="margin-top:0;">⚙️ Atualizar Dados de Acesso</h3>
         <div class="form-group">
             <label for="email">Seu Email Atual:</label>
             <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
@@ -226,7 +218,7 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
                 <input type="password" id="new_password" name="new_password" placeholder="Deixe em branco para não alterar">
             </div>
         </div>
-        <button type="submit" class="btn" style="margin-top:20px;">Salvar Alterações</button>
+        <button type="submit" class="btn-admin" style="margin-top:20px;">Salvar Alterações</button>
     </form>
 
 </main>
@@ -234,7 +226,7 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
 <!-- ══ MODAIS DE AVATAR (sem alterações) ══ -->
 <div id="opcoesAvatarModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9998; align-items:center; justify-content:center;">
     <div style="background:white; padding:25px; border-radius:10px; text-align:center; max-width:400px; width:90%;">
-        <h3 style="margin-top:0; font-family:'Oswald',sans-serif; text-transform:uppercase;">Mudar Foto de Perfil</h3>
+        <h3 style="margin-top:0; font-family:'Oswald',sans-serif; text-transform:uppercase; color:#111;">Mudar Foto de Perfil</h3>
         <p style="color:#666; font-size:0.9rem; margin-bottom:20px;">Escolha como deseja adicionar a sua nova foto:</p>
         <div style="display:flex; flex-direction:column; gap:12px;">
             <button onclick="prepararCamera()" style="background:#111; color:white; padding:12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:1rem;">📷 Tirar Foto na Hora</button>
@@ -244,7 +236,7 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
         </div>
         <div id="areaUrl" style="display:none; margin-top:20px; text-align:left; background:#f8f9fa; padding:15px; border-radius:5px; border:1px solid #ddd;">
             <label style="font-size:0.9rem; font-weight:bold; color:#333;">Cole o link da imagem:</label>
-            <input type="url" id="urlInput" placeholder="https://site.com/minha-foto.jpg" style="width:100%; padding:10px; margin-top:8px; border:1px solid #ccc; border-radius:5px; box-sizing:border-box;">
+            <input type="url" id="urlInput" placeholder="https://site.com/minha-foto.jpg" style="width:100%; padding:10px; margin-top:8px; border:1px solid #ccc; border-radius:5px; box-sizing:border-box; color:#111;">
             <button onclick="salvarFotoUrl()" style="margin-top:10px; width:100%; background:#28a745; color:white; padding:10px; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">Salvar Link</button>
         </div>
         <button onclick="fecharModalOpcoesAvatar()" style="margin-top:25px; background:transparent; color:#dc3545; padding:10px 20px; border:2px solid #dc3545; border-radius:5px; cursor:pointer; font-weight:bold;">Cancelar</button>
@@ -253,7 +245,7 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
 
 <div id="cameraModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; align-items:center; justify-content:center;">
     <div style="background:white; padding:20px; border-radius:10px; text-align:center; max-width:90%;">
-        <h3 style="margin-top:0; font-family:'Oswald',sans-serif;">Sorria! 📸</h3>
+        <h3 style="margin-top:0; font-family:'Oswald',sans-serif; color:#111;">Sorria! 📸</h3>
         <video id="videoElement" autoplay style="width:100%; max-width:400px; border-radius:8px; background:#000;"></video>
         <canvas id="canvasElement" style="display:none;"></canvas>
         <div style="margin-top:15px; display:flex; gap:10px; justify-content:center;">
