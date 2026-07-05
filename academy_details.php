@@ -58,6 +58,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_schedule_instructo
     }
 }
 
+// POST: Atualizar Avatar da Academia
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_academy_avatar'])) {
+    if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'instructor') {
+        $iuid = (int)$_SESSION['user_id'];
+        $rc = $db->query("SELECT instructors.academy_id FROM users JOIN instructors ON users.instructor_id=instructors.id WHERE users.id=$iuid");
+        $rw = $rc->fetchArray(SQLITE3_ASSOC);
+        if ($rw && $rw['academy_id'] == $academy_id) {
+            $avatar_url = trim($_POST['academy_avatar_url']);
+            $sa = $db->prepare("UPDATE academies SET avatar = :av WHERE id = :aid");
+            $sa->bindValue('av', $avatar_url, SQLITE3_TEXT);
+            $sa->bindValue('aid', $academy_id, SQLITE3_INTEGER);
+            $sa->execute();
+            header("Location: academy_details.php?id=$academy_id");
+            exit;
+        }
+    }
+}
+
 // POST: Avaliar academia
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_review'])) {
     if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user') {
@@ -125,7 +143,36 @@ include 'header.php';
 <main class="academy-main-container">
 
     <!-- HERO DA ACADEMIA -->
-    <div class="academy-hero">
+    <div class="academy-hero" style="position: relative;">
+        <?php
+        $is_my_academy_instructor = false;
+        if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'instructor') {
+            $iuid_check = (int)$_SESSION['user_id'];
+            $rc_check = $db->query("SELECT instructors.academy_id FROM users JOIN instructors ON users.instructor_id=instructors.id WHERE users.id=$iuid_check");
+            $rw_check = $rc_check->fetchArray(SQLITE3_ASSOC);
+            if ($rw_check && $rw_check['academy_id'] == $academy_id) {
+                $is_my_academy_instructor = true;
+            }
+        }
+        ?>
+
+        <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+            <div style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 4px solid var(--primary); background: #222; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                <?php if (!empty($academy['avatar'])): ?>
+                    <img src="<?php echo htmlspecialchars($academy['avatar']); ?>" alt="Avatar Academia" style="width: 100%; height: 100%; object-fit: cover;">
+                <?php else: ?>
+                    <span style="font-size: 3rem;">🏛️</span>
+                <?php endif; ?>
+            </div>
+
+            <?php if ($is_my_academy_instructor): ?>
+            <form method="POST" style="margin-top: 10px; display: flex; gap: 5px; align-items: center; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 5px;">
+                <input type="text" name="academy_avatar_url" placeholder="URL da nova foto" style="padding: 5px; border-radius: 4px; border: none; font-size: 0.8rem; width: 150px;">
+                <button type="submit" name="update_academy_avatar" class="btn" style="padding: 5px 10px; font-size: 0.8rem;">Atualizar</button>
+            </form>
+            <?php endif; ?>
+        </div>
+
         <div class="academy-hero-meta">
             <?php if ($total_reviews > 0): ?>
             <span class="academy-hero-rating">
