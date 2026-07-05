@@ -185,6 +185,20 @@ include 'header.php';
         <h1><?php echo htmlspecialchars($academy['name']); ?></h1>
         <div class="address">📍 <?php echo htmlspecialchars($academy['address']); ?></div>
         <div class="description"><?php echo nl2br(htmlspecialchars($academy['description'])); ?></div>
+
+        <?php if (!empty($academy['address'])): ?>
+        <div style="margin-top: 2rem; width: 100%; max-width: 800px; border-radius: 10px; overflow: hidden; border: 2px solid #333; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+            <iframe
+                width="100%"
+                height="300"
+                frameborder="0"
+                scrolling="no"
+                marginheight="0"
+                marginwidth="0"
+                src="https://maps.google.com/maps?q=<?php echo urlencode($academy['address']); ?>&t=&z=15&ie=UTF8&iwloc=&output=embed">
+            </iframe>
+        </div>
+        <?php endif; ?>
     </div>
 
     <!-- INSTRUTORES -->
