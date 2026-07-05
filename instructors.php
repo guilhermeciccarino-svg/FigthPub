@@ -6,9 +6,10 @@ $db = new SQLite3('academies.db');
 
 // Lógica de busca
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
-$query = "SELECT instructors.*, academies.name as academy_name
+$query = "SELECT instructors.*, academies.name as academy_name, users.avatar as user_avatar
           FROM instructors
-          JOIN academies ON instructors.academy_id = academies.id";
+          JOIN academies ON instructors.academy_id = academies.id
+          LEFT JOIN users ON users.instructor_id = instructors.id";
 
 // Se tiver algo na busca, adicionamos o filtro
 if (!empty($search)) {
@@ -45,7 +46,13 @@ $result = $db->query($query);
             $count++;
         ?>
             <div class="instructor-card-pro">
-                <span class="instructor-icon">🥋</span>
+                <div style="width: 80px; height: 80px; margin: 0 auto 15px auto; border-radius: 50%; overflow: hidden; border: 3px solid var(--primary); background: #222; display: flex; align-items: center; justify-content: center;">
+                    <?php if (!empty($instructor['user_avatar'])): ?>
+                        <img src="<?php echo htmlspecialchars($instructor['user_avatar']); ?>" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                    <?php else: ?>
+                        <span class="instructor-icon" style="margin: 0; font-size: 2.5rem;">🥋</span>
+                    <?php endif; ?>
+                </div>
                 <h3><?php echo htmlspecialchars($instructor['name']); ?></h3>
                 <p class="academy-card-addr">📍 <?php echo htmlspecialchars($instructor['academy_name']); ?></p>
                 <p><?php echo nl2br(htmlspecialchars($instructor['bio'])); ?></p>
