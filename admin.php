@@ -30,13 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // A. ADICIONAR ACADEMIA
     if (isset($_POST['add_academy'])) {
-        $stmt_ac = $db->prepare("INSERT INTO academies (name, address, description, num_students, num_titles) 
-                                 VALUES (:name, :address, :description, :num_students, :num_titles)");
+        $stmt_ac = $db->prepare("INSERT INTO academies (name, address, description, num_students, num_titles, avatar)
+                                 VALUES (:name, :address, :description, :num_students, :num_titles, :avatar)");
         $stmt_ac->bindValue(':name', trim($_POST['name']), SQLITE3_TEXT);
         $stmt_ac->bindValue(':address', trim($_POST['address']), SQLITE3_TEXT);
         $stmt_ac->bindValue(':description', trim($_POST['description']), SQLITE3_TEXT);
         $stmt_ac->bindValue(':num_students', 0, SQLITE3_INTEGER);
         $stmt_ac->bindValue(':num_titles', (int)$_POST['num_titles'], SQLITE3_INTEGER);
+        $stmt_ac->bindValue(':avatar', trim($_POST['academy_avatar']), SQLITE3_TEXT);
         $stmt_ac->execute();
     } 
     
@@ -78,11 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $instructor_id = $db->lastInsertRowID();
 
             // 2. Inserir na tabela users
-            $stmt_user = $db->prepare("INSERT INTO users (username, password, email, role, instructor_id) VALUES (:username, :password, :email, 'instructor', :instructor_id)");
+            $stmt_user = $db->prepare("INSERT INTO users (username, password, email, role, instructor_id, avatar) VALUES (:username, :password, :email, 'instructor', :instructor_id, :avatar)");
             $stmt_user->bindValue(':username', $username, SQLITE3_TEXT);
             $stmt_user->bindValue(':password', $password, SQLITE3_TEXT);
             $stmt_user->bindValue(':email', $email, SQLITE3_TEXT);
             $stmt_user->bindValue(':instructor_id', $instructor_id, SQLITE3_INTEGER);
+            $stmt_user->bindValue(':avatar', trim($_POST['instructor_avatar'] ?? '' ), SQLITE3_TEXT);
             $stmt_user->execute();
             
             // Sucesso! Confirma as alterações.
@@ -131,6 +133,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt_ev->execute();
     }
 
+    // ADICIONAR GALERIA DE EVENTOS
+    elseif (isset($_POST['add_event_gallery'])) {
+        $event_id = (int)$_POST['gallery_event_id'];
+        $image_url = trim($_POST['gallery_image_url']);
+        $description = trim($_POST['gallery_description']);
+        if (!empty($event_id) && !empty($image_url)) {
+            $stmt_gal = $db->prepare("INSERT INTO event_gallery (event_id, image_url, description) VALUES (:eid, :img, :desc)");
+            $stmt_gal->bindValue(':eid', $event_id, SQLITE3_INTEGER);
+            $stmt_gal->bindValue(':img', $image_url, SQLITE3_TEXT);
+            $stmt_gal->bindValue(':desc', $description, SQLITE3_TEXT);
+            $stmt_gal->execute();
+        }
+    }
+
     // G. EXCLUIR EVENTO
     elseif (isset($_POST['delete_event'])) {
         $id = (int)$_POST['event_id'];
@@ -157,7 +173,7 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
         <form method="POST" class="admin-form-inner">
             <div class="form-group">
                 <label>Nome do Evento:</label>
-                <input type="text" name="event_name" placeholder="Ex: ADCC 2026, Campeonato Nacional de Karaté..." required>
+                <input type="text" name="event_name" placeholder="Ex: ADCC 2026, Campeonato Nacional de Karaté..." required minlength="3" maxlength="150">
             </div>
             <div class="form-group">
                 <label>Estilo de Luta:</label>
@@ -217,6 +233,34 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
             </table>
         </div>
     </div>
+
+    <div class="admin-section section-gallery" style="border-top: 5px solid #28a745;">
+        <h2>Gerenciar Galeria de Eventos 📸</h2>
+        <h3>Adicionar Foto a um Evento</h3>
+        <form method="POST" class="admin-form-inner">
+            <div class="form-group">
+                <label>Selecione o Evento:</label>
+                <select name="gallery_event_id" required>
+                    <option value="">-- Escolha um Evento --</option>
+                    <?php
+                    $res_ev = $db->query("SELECT id, name FROM events ORDER BY id DESC");
+                    while ($ev = $res_ev->fetchArray(SQLITE3_ASSOC)): ?>
+                        <option value="<?php echo $ev['id']; ?>"><?php echo htmlspecialchars($ev['name']); ?></option>
+                    <?php endwhile; ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>URL da Imagem:</label>
+                <input type="text" name="gallery_image_url" placeholder="https://..." required>
+            </div>
+            <div class="form-group">
+                <label>Descrição (Opcional):</label>
+                <textarea name="gallery_description" rows="2" placeholder="Descreva a foto..."></textarea>
+            </div>
+            <button type="submit" name="add_event_gallery" class="btn-admin" style="background: #28a745;">Adicionar Foto</button>
+        </form>
+    </div>
+
     <div class="admin-section section-academies">
         <h2>Gerenciar Academias</h2>
         
@@ -224,11 +268,15 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
         <form method="POST" class="admin-form-inner">
             <div class="form-group">
                 <label>Nome:</label>
-                <input type="text" name="name" required>
+                <input type="text" name="name" required minlength="3" maxlength="100">
             </div>
             <div class="form-group">
                 <label>Endereço:</label>
                 <input type="text" name="address" required>
+            </div>
+            <div class="form-group">
+                <label>URL do Avatar da Academia (Opcional):</label>
+                <input type="text" name="academy_avatar" placeholder="https://...">
             </div>
             <div class="form-group">
                 <label>Descrição:</label>
@@ -278,9 +326,14 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
         <form method="POST" class="admin-form-inner">
             <div class="form-group">
                 <label>Nome do Instrutor:</label>
-                <input type="text" name="instructor_name" required>
+                <input type="text" name="instructor_name" required minlength="3" maxlength="100">
             </div>
             
+            <div class="form-group">
+                <label>URL do Avatar do Instrutor (Opcional):</label>
+                <input type="text" name="instructor_avatar" placeholder="https://...">
+            </div>
+
             <div class="form-group">
                 <label>Vincular à Academia:</label>
                 <select name="academy_id" required>
@@ -304,7 +357,7 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
             <div class="form-grid-3">
                 <input type="text" name="username" placeholder="Usuário" required>
                 <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Senha" required>
+                <input type="password" name="password" placeholder="Senha" required minlength="6">
             </div>
             
             <button type="submit" name="add_instructor" class="btn-admin btn-admin-alt">Criar Instrutor</button>

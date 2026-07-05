@@ -56,8 +56,8 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user') {
                             </a>
                             
                             <?php if($pending_count > 0): ?>
-                                <div class="notifications-dropdown" style="display: none;">
-                                    <div style="font-weight: bold; padding-bottom: 5px; border-bottom: 1px solid #ccc; color:#111; text-align: left;">Novos Convites</div>
+                                <div class="notifications-dropdown">
+                                    <div style="font-weight: bold; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #444; color:#fff; text-align: left; font-size: 1.1rem;">🔔 Notificações</div>
                                     <?php foreach($notifs as $n): ?>
                                         <div class="notif-item">
                                             <p style="margin: 0;"><?php echo htmlspecialchars($n['message']); ?></p>
@@ -174,7 +174,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user') {
                 bellBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    notifDropdown.style.display = notifDropdown.style.display === 'block' ? 'none' : 'block';
+                    notifDropdown.classList.toggle('show');
                 });
 
                 notifDropdown.addEventListener('click', function(e) {
@@ -182,7 +182,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user') {
                 });
 
                 document.addEventListener('click', function() {
-                    notifDropdown.style.display = 'none';
+                    notifDropdown.classList.remove('show');
                 });
             }
 
