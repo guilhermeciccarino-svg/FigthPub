@@ -430,7 +430,7 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
                             <td>
                                 <form method="POST" class="form-inline">
                                     <input type="hidden" name="schedule_id" value="<?php echo $sch['id']; ?>">
-                                    <button type="submit" name="delete_schedule" class="btn-text-danger" onclick="return confirm('Remover esta aula da grade?')">Remover</button>
+                                    <button type="submit" name="delete_schedule" class="btn-text-danger" onclick="return confirm('Remover esta aula da grade?')">Excluir</button>
                                 </form>
                             </td>
                         </tr>
