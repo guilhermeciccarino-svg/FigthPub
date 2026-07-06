@@ -22,18 +22,18 @@ $result = $db->query($query);
 <main style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
 
     <div class="event-hero">
-        <h1>🏆 Calendário de Eventos</h1>
+        <h1> Calendário de Eventos</h1>
         <p>Descubra os próximos campeonatos, torneios e seminários. Prepare-se para testar os seus limites.</p>
     </div>
 
     <div class="search-container" style="max-width: 600px; margin: 0 auto 3rem auto;">
         <form class="fp-search-form" method="GET">
             <input type="text" name="search" placeholder="Buscar por torneio ou estilo de luta (ex: BJJ, Karate)..." value="<?php echo htmlspecialchars($search); ?>">
-            <button type="submit">🔍 Procurar</button>
+            <button type="submit"> Procurar</button>
         </form>
         <?php if ($is_searching): ?>
             <div style="margin-top: 10px; text-align:center;">
-                <a href="events.php" class="clear-search">✖ Limpar Pesquisa</a>
+                <a href="events.php" class="clear-search"> Limpar Pesquisa</a>
             </div>
         <?php endif; ?>
     </div>
@@ -55,7 +55,7 @@ $result = $db->query($query);
 
     <?php if (!$has_events): ?>
         <div class="fp-empty-state">
-            <span>🏟️</span>
+
             <p>Nenhum evento encontrado.</p>
         </div>
     <?php endif; ?>

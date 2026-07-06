@@ -19,9 +19,9 @@ $query = "SELECT u.*, s.full_name, s.birth_date, s.phone, s.emergency_contact, s
 $user = $db->query($query)->fetchArray(SQLITE3_ASSOC);
 
 // Role display
-$role_display = 'Aluno';  $role_class = 'role-user';  $avatar_icon = '🥋';
-if ($user['role'] == 'admin')      { $role_display = 'Administrador / Mestre'; $role_class = 'role-admin';      $avatar_icon = '👑'; }
-if ($user['role'] == 'instructor') { $role_display = 'Instrutor Oficial';       $role_class = 'role-instructor'; $avatar_icon = '🥊'; }
+$role_display = 'Aluno';  $role_class = 'role-user';  $avatar_icon = '';
+if ($user['role'] == 'admin')      { $role_display = 'Administrador / Mestre'; $role_class = 'role-admin';      $avatar_icon = ''; }
+if ($user['role'] == 'instructor') { $role_display = 'Instrutor Oficial';       $role_class = 'role-instructor'; $avatar_icon = ''; }
 
 // 2. TODAS AS GRADUAÇÕES do utilizador
 $stmt_grads = $db->prepare("
@@ -96,7 +96,7 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
             </span>
             <?php if (!empty($user['academy_name'])): ?>
             <span class="profile-academy-badge">
-                🏟️ <?php echo htmlspecialchars($user['academy_name']); ?>
+                 <?php echo htmlspecialchars($user['academy_name']); ?>
             </span>
             <?php endif; ?>
         </div>
@@ -106,18 +106,18 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
     <div class="dash-stats" style="margin-bottom:2rem;">
         <div class="dash-stat-card gold">
             <div class="dash-stat-num"><?php echo $total_grads; ?></div>
-            <div class="dash-stat-label">🏆 Graduações</div>
+            <div class="dash-stat-label"> Graduações</div>
         </div>
         <div class="dash-stat-card green">
             <div class="dash-stat-num"><?php echo $total_pres; ?></div>
-            <div class="dash-stat-label">📋 Presenças</div>
+            <div class="dash-stat-label"> Presenças</div>
         </div>
     </div>
 
     <!-- ══ DADOS PESSOAIS (só para alunos) ══ -->
     <?php if ($user['role'] == 'user'): ?>
     <div class="admin-section" style="border-top: 5px solid #28a745;">
-        <h3 style="margin-top:0;">📄 Dados Pessoais</h3>
+        <h3 style="margin-top:0;"> Dados Pessoais</h3>
         <div class="info-kv-grid">
             <p class="info-kv-item"><strong>Nº Documento (CC)</strong><?php echo htmlspecialchars($user['CC'] ?? 'N/A'); ?></p>
             <p class="info-kv-item"><strong>Data de Nascimento</strong><?php echo !empty($user['birth_date']) ? date('d/m/Y', strtotime($user['birth_date'])) : 'N/A'; ?></p>
@@ -130,7 +130,7 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
     <!-- ══ HISTÓRICO DE GRADUAÇÕES ══ -->
     <div id="historico" class="dash-panel" style="margin-bottom:2rem; overflow:hidden;">
         <div class="dash-panel-header">
-            <h2>🥋 Histórico de Graduações</h2>
+            <h2> Histórico de Graduações</h2>
             <span style="font-size:0.8rem; color:#888;"><?php echo $total_grads; ?> no total</span>
         </div>
         <?php
@@ -147,14 +147,14 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
         </div>
         <?php endwhile; ?>
         <?php if (!$tem_grad): ?>
-        <div class="dash-empty" style="padding:2.5rem;"><span>💪</span>Ainda sem graduações. Continue treinando!</div>
+        <div class="dash-empty" style="padding:2.5rem;">Ainda sem graduações. Continue treinando!</div>
         <?php endif; ?>
     </div>
 
     <!-- ══ HISTÓRICO DE PRESENÇAS ══ -->
     <div id="presencas" class="dash-panel" style="margin-bottom:2rem; overflow:hidden;">
         <div class="dash-panel-header">
-            <h2>📋 Histórico de Presenças</h2>
+            <h2> Histórico de Presenças</h2>
             <span style="font-size:0.8rem; color:#888;"><?php echo $total_pres; ?> no total</span>
         </div>
 
@@ -197,13 +197,13 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
         <?php endif; ?>
 
         <?php else: ?>
-        <div class="dash-empty" style="padding:2.5rem;"><span>📭</span>Nenhuma presença registada ainda.</div>
+        <div class="dash-empty" style="padding:2.5rem;">Nenhuma presença registada ainda.</div>
         <?php endif; ?>
     </div>
 
     <!-- ══ ATUALIZAR CONTA ══ -->
     <form method="POST" action="update_profile.php" class="admin-section" style="margin:0;">
-        <h3 style="margin-top:0;">⚙️ Atualizar Dados de Acesso</h3>
+        <h3 style="margin-top:0;"> Atualizar Dados de Acesso</h3>
         <div class="form-group">
             <label for="email">Seu Email Atual:</label>
             <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
@@ -229,10 +229,10 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
         <h3 style="margin-top:0; font-family:'Oswald',sans-serif; text-transform:uppercase; color:#111;">Mudar Foto de Perfil</h3>
         <p style="color:#666; font-size:0.9rem; margin-bottom:20px;">Escolha como deseja adicionar a sua nova foto:</p>
         <div style="display:flex; flex-direction:column; gap:12px;">
-            <button onclick="prepararCamera()" style="background:#111; color:white; padding:12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:1rem;">📷 Tirar Foto na Hora</button>
-            <button onclick="document.getElementById('fileInput').click();" style="background:#28a745; color:white; padding:12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:1rem;">📁 Enviar do Dispositivo</button>
+            <button onclick="prepararCamera()" style="background:#111; color:white; padding:12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:1rem;"> Tirar Foto na Hora</button>
+            <button onclick="document.getElementById('fileInput').click();" style="background:#28a745; color:white; padding:12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:1rem;"> Enviar do Dispositivo</button>
             <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="lidarComUpload(event)">
-            <button onclick="mostrarAreaUrl()" style="background:#007bff; color:white; padding:12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:1rem;">🔗 Usar Link (URL)</button>
+            <button onclick="mostrarAreaUrl()" style="background:#007bff; color:white; padding:12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:1rem;"> Usar Link (URL)</button>
         </div>
         <div id="areaUrl" style="display:none; margin-top:20px; text-align:left; background:#f8f9fa; padding:15px; border-radius:5px; border:1px solid #ddd;">
             <label style="font-size:0.9rem; font-weight:bold; color:#333;">Cole o link da imagem:</label>
@@ -245,7 +245,7 @@ $total_pres  = $db->querySingle("SELECT COUNT(*) FROM attendance WHERE student_i
 
 <div id="cameraModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; align-items:center; justify-content:center;">
     <div style="background:white; padding:20px; border-radius:10px; text-align:center; max-width:90%;">
-        <h3 style="margin-top:0; font-family:'Oswald',sans-serif; color:#111;">Sorria! 📸</h3>
+        <h3 style="margin-top:0; font-family:'Oswald',sans-serif; color:#111;">Sorria! </h3>
         <video id="videoElement" autoplay style="width:100%; max-width:400px; border-radius:8px; background:#000;"></video>
         <canvas id="canvasElement" style="display:none;"></canvas>
         <div style="margin-top:15px; display:flex; gap:10px; justify-content:center;">

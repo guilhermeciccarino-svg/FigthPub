@@ -17,7 +17,7 @@ $query = "CREATE TABLE IF NOT EXISTS notifications (
 );";
 
 if ($db->exec($query)) {
-    echo "<h2 style='color: green;'>✅ Tabela de Notificações criada com sucesso!</h2>";
+    echo "<h2 style='color: green;'> Tabela de Notificações criada com sucesso!</h2>";
     echo "<p>Podes apagar este ficheiro.</p>";
 } else {
     echo "<h2 style='color: red;'>Erro: " . $db->lastErrorMsg() . "</h2>";

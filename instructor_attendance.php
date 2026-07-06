@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_attendance'])) {
         $db->exec('COMMIT'); // Confirma as gravações
     }
 
-    $mensagem_alerta = "<div class='alert-success'><strong>✅ Sucesso!</strong> A lista de presenças do dia " . date('d/m/Y', strtotime($class_date)) . " foi guardada.</div>";
+    $mensagem_alerta = "<div class='alert-success'><strong> Sucesso!</strong> A lista de presenças do dia " . date('d/m/Y', strtotime($class_date)) . " foi guardada.</div>";
 }
 
 // 4. LER OS FILTROS DA PESQUISA (GET)
@@ -90,7 +90,7 @@ if ($selected_schedule && $selected_date) {
 
 <main style="max-width: 900px; margin: 0 auto; padding: 20px;">
     <div class="panel-banner" style="margin-bottom: 2rem;">
-        <h1 style="margin: 0 0 10px 0;">📋 Controlo de Presenças</h1>
+        <h1 style="margin: 0 0 10px 0;"> Controlo de Presenças</h1>
         <p style="margin:0; font-size: 1.05rem;">Faça a chamada dos seus alunos para manter o histórico de treinos em dia.</p>
     </div>
 
@@ -144,11 +144,11 @@ if ($selected_schedule && $selected_date) {
                         <?php endforeach; ?>
                     </div>
 
-                    <button type="submit" name="save_attendance" class="btn-save-attendance">💾 Guardar Lista de Presenças</button>
+                    <button type="submit" name="save_attendance" class="btn-save-attendance"> Guardar Lista de Presenças</button>
                 </form>
             <?php else: ?>
                 <div class="fp-empty-state">
-                    <span>👻</span>
+
                     <p>A sua academia ainda não tem alunos matriculados para poder fazer a chamada.</p>
                 </div>
             <?php endif; ?>

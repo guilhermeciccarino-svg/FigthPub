@@ -70,10 +70,10 @@ function renderStarsMini($rating, $total) {
                 <input type="text" name="search"
                        placeholder="Buscar por nome ou morada..."
                        value="<?php echo htmlspecialchars($search); ?>">
-                <button type="submit">🔍 Buscar</button>
+                <button type="submit"> Buscar</button>
             </form>
             <?php if ($is_searching): ?>
-            <a href="academies.php" class="clear-search">✖ Limpar pesquisa</a>
+            <a href="academies.php" class="clear-search"> Limpar pesquisa</a>
             <?php endif; ?>
         </div>
     </div>
@@ -82,7 +82,7 @@ function renderStarsMini($rating, $total) {
     <!-- TOP 5 -->
     <div class="section-block">
         <div class="section-block-header">
-            <h2 class="section-title-gold">🏆 Top 5 Elite</h2>
+            <h2 class="section-title-gold"> Top 5 Elite</h2>
             <p>Ranking oficial baseado em títulos e alunos activos.</p>
         </div>
         <div class="top5-grid">
@@ -96,11 +96,11 @@ function renderStarsMini($rating, $total) {
                 <div class="academy-card-rank">#<?php echo $rank; ?></div>
                 <div class="academy-card-body">
                     <h3><?php echo htmlspecialchars($ac['name']); ?></h3>
-                    <p class="academy-card-addr">📍 <?php echo htmlspecialchars($ac['address']); ?></p>
+                    <p class="academy-card-addr"> <?php echo htmlspecialchars($ac['address']); ?></p>
                     <?php echo renderStarsMini($ac['avg_rating'], $ac['total_reviews']); ?>
                     <div class="academy-card-stats">
-                        <span>🥋 <strong><?php echo $ac['real_num_students']; ?></strong> Alunos</span>
-                        <span>🏆 <strong><?php echo $ac['num_titles']; ?></strong> Títulos</span>
+                        <span> <strong><?php echo $ac['real_num_students']; ?></strong> Alunos</span>
+                        <span> <strong><?php echo $ac['num_titles']; ?></strong> Títulos</span>
                         <span class="score-badge">⭐ <?php echo $score; ?> pts</span>
                     </div>
                     <a href="academy_details.php?id=<?php echo $ac['id']; ?>" class="btn-card-details">Ver Academia →</a>
@@ -109,7 +109,7 @@ function renderStarsMini($rating, $total) {
             <?php $rank++; endwhile; ?>
             <?php if ($rank == 1): ?>
             <div class="fp-empty-state" style="grid-column:1/-1">
-                <span>🏟️</span><p>Nenhuma academia no ranking ainda.</p>
+                <p>Nenhuma academia no ranking ainda.</p>
             </div>
             <?php endif; ?>
         </div>
@@ -117,11 +117,11 @@ function renderStarsMini($rating, $total) {
 
     <div class="fp-divider" style="margin:0 2rem"></div>
     <div class="section-block-header" style="padding:2rem 2rem 0">
-        <h2 class="section-title-gold">📋 Todas as Academias</h2>
+        <h2 class="section-title-gold"> Todas as Academias</h2>
     </div>
     <?php else: ?>
     <div class="section-block-header" style="padding:2rem 2rem 0">
-        <h2 class="section-title-gold">🔍 Resultados para "<?php echo htmlspecialchars($search); ?>"</h2>
+        <h2 class="section-title-gold"> Resultados para "<?php echo htmlspecialchars($search); ?>"</h2>
     </div>
     <?php endif; ?>
 
@@ -135,12 +135,12 @@ function renderStarsMini($rating, $total) {
         <div class="academy-card-dark">
             <div class="academy-card-body">
                 <h3><?php echo htmlspecialchars($ac['name']); ?></h3>
-                <p class="academy-card-addr">📍 <?php echo htmlspecialchars($ac['address']); ?></p>
+                <p class="academy-card-addr"> <?php echo htmlspecialchars($ac['address']); ?></p>
                 <?php echo renderStarsMini($ac['avg_rating'], $ac['total_reviews']); ?>
                 <p class="academy-card-desc"><?php echo htmlspecialchars(mb_substr($ac['description'] ?? '', 0, 100)) . (mb_strlen($ac['description'] ?? '') > 100 ? '…' : ''); ?></p>
                 <div class="academy-card-stats">
-                    <span>🥋 <strong><?php echo $ac['real_num_students']; ?></strong> Alunos</span>
-                    <span>🏆 <strong><?php echo $ac['num_titles']; ?></strong> Títulos</span>
+                    <span> <strong><?php echo $ac['real_num_students']; ?></strong> Alunos</span>
+                    <span> <strong><?php echo $ac['num_titles']; ?></strong> Títulos</span>
                 </div>
                 <a href="academy_details.php?id=<?php echo $ac['id']; ?>" class="btn-card-details">Ver Academia →</a>
             </div>
@@ -148,7 +148,7 @@ function renderStarsMini($rating, $total) {
         <?php endwhile; ?>
         <?php if (!$has): ?>
         <div class="fp-empty-state" style="grid-column:1/-1">
-            <span>🏟️</span><p>Nenhuma academia encontrada.</p>
+            <p>Nenhuma academia encontrada.</p>
         </div>
         <?php endif; ?>
     </div>

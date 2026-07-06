@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt_ac->bindValue(':num_titles', (int)$_POST['num_titles'], SQLITE3_INTEGER);
         $stmt_ac->bindValue(':avatar', trim($_POST['academy_avatar']), SQLITE3_TEXT);
         $stmt_ac->execute();
-    } 
-    
+    }
+
     // B. EXCLUIR ACADEMIA
     elseif (isset($_POST['delete_academy'])) {
         $id = (int)$_POST['academy_id'];
@@ -53,21 +53,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt_del3 = $db->prepare("DELETE FROM schedules WHERE academy_id = :id");
         $stmt_del3->bindValue(':id', $id, SQLITE3_INTEGER);
         $stmt_del3->execute();
-    } 
-    
+    }
+
     // C. ADICIONAR INSTRUTOR
     elseif (isset($_POST['add_instructor'])) {
         $instructor_name = $_POST['instructor_name'];
         $academy_id = (int)$_POST['academy_id'];
         $bio = $_POST['bio'];
-        
+
         $username = trim($_POST['username']);
         $email = trim($_POST['email']);
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
         // Inicia a transação: ou salva tudo ou não salva nada
         $db->exec('BEGIN');
-        
+
         try {
             // 1. Inserir na tabela instructors
             $stmt_inst = $db->prepare("INSERT INTO instructors (name, academy_id, bio) VALUES (:name, :academy_id, :bio)");
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt_inst->bindValue(':academy_id', $academy_id, SQLITE3_INTEGER);
             $stmt_inst->bindValue(':bio', $bio, SQLITE3_TEXT);
             $stmt_inst->execute();
-            
+
             $instructor_id = $db->lastInsertRowID();
 
             // 2. Inserir na tabela users
@@ -86,18 +86,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt_user->bindValue(':instructor_id', $instructor_id, SQLITE3_INTEGER);
             $stmt_user->bindValue(':avatar', trim($_POST['instructor_avatar'] ?? '' ), SQLITE3_TEXT);
             $stmt_user->execute();
-            
+
             // Sucesso! Confirma as alterações.
             $db->exec('COMMIT');
             $msg_sucesso = "Instrutor e login criados com sucesso!";
-            
+
         } catch (Exception $e) {
             // Se falhar (ex: username repetido), cancela tudo para não deixar dados pela metade
             $db->exec('ROLLBACK');
             $msg_erro = "Erro ao criar instrutor: Já existe um utilizador com esse Username ou Email.";
         }
     }
-    
+
     // D. EXCLUIR INSTRUTOR
     elseif (isset($_POST['delete_instructor'])) {
         $id = (int)$_POST['instructor_id'];
@@ -110,8 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt_di3 = $db->prepare("DELETE FROM schedules WHERE instructor_id = :id");
         $stmt_di3->bindValue(':id', $id, SQLITE3_INTEGER);
         $stmt_di3->execute();
-    } 
-    
+    }
+
     // E. EXCLUIR HORÁRIO
     elseif (isset($_POST['delete_schedule'])) {
         $id = (int)$_POST['schedule_id'];
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // F. ADICIONAR EVENTO / CAMPEONATO
     elseif (isset($_POST['add_event'])) {
-        $stmt_ev = $db->prepare("INSERT INTO events (name, martial_art_type, description, rules, weight_classes, belt_ranks) 
+        $stmt_ev = $db->prepare("INSERT INTO events (name, martial_art_type, description, rules, weight_classes, belt_ranks)
                                  VALUES (:name, :martial_art_type, :description, :rules, :weight_classes, :belt_ranks)");
         $stmt_ev->bindValue(':name', trim($_POST['event_name']), SQLITE3_TEXT);
         $stmt_ev->bindValue(':martial_art_type', trim($_POST['martial_art_type']), SQLITE3_TEXT);
@@ -167,8 +167,8 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
     </div>
 
     <div class="admin-section section-events" style="border-top: 5px solid #ff9800;">
-        <h2>Gerenciar Eventos / Campeonatos 🏆</h2>
-        
+        <h2>Gerenciar Eventos / Campeonatos </h2>
+
         <h3>Cadastrar Novo Torneio</h3>
         <form method="POST" class="admin-form-inner">
             <div class="form-group">
@@ -185,13 +185,13 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
             </div>
 
             <hr style="border: 0; border-top: 1px dashed #333; margin: 1.5rem 0;">
-            <p style="color: #d32f2f; font-weight: bold; margin-bottom: 10px;">👇 Dica: Nas caixas abaixo, pressione ENTER para criar um novo tópico/linha!</p>
+            <p style="color: #d32f2f; font-weight: bold; margin-bottom: 10px;"> Dica: Nas caixas abaixo, pressione ENTER para criar um novo tópico/linha!</p>
 
             <div class="form-group">
                 <label>Regras do Torneio:</label>
                 <textarea name="rules" rows="5" placeholder="Proibido chaves de calcanhar&#10;Lutas de 10 minutos&#10;Pontuação por finalização..."></textarea>
             </div>
-            
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                 <div class="form-group">
                     <label>Categorias de Peso:</label>
@@ -235,7 +235,7 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
     </div>
 
     <div class="admin-section section-gallery" style="border-top: 5px solid #28a745;">
-        <h2>Gerenciar Galeria de Eventos 📸</h2>
+        <h2>Gerenciar Galeria de Eventos </h2>
         <h3>Adicionar Foto a um Evento</h3>
         <form method="POST" class="admin-form-inner">
             <div class="form-group">
@@ -263,7 +263,7 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
 
     <div class="admin-section section-academies">
         <h2>Gerenciar Academias</h2>
-        
+
         <h3>Adicionar Nova Academia</h3>
         <form method="POST" class="admin-form-inner">
             <div class="form-group">
@@ -321,14 +321,14 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
 
     <div class="admin-section section-instructors">
         <h2>Gerenciar Instrutores</h2>
-        
+
         <h3>Cadastrar Instrutor e Login</h3>
         <form method="POST" class="admin-form-inner">
             <div class="form-group">
                 <label>Nome do Instrutor:</label>
                 <input type="text" name="instructor_name" required minlength="3" maxlength="100">
             </div>
-            
+
             <div class="form-group">
                 <label>URL do Avatar do Instrutor (Opcional):</label>
                 <input type="text" name="instructor_avatar" placeholder="https://...">
@@ -345,21 +345,21 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
                     <?php endwhile; ?>
                 </select>
             </div>
-            
+
             <div class="form-group">
                 <label>Biografia:</label>
                 <textarea name="bio" required></textarea>
             </div>
 
             <hr style="border: 0; border-top: 1px solid #333; margin: 1.5rem 0;">
-            
+
             <h4 style="margin-bottom: 1rem; color: #fff;">Dados de Acesso (Login)</h4>
             <div class="form-grid-3">
                 <input type="text" name="username" placeholder="Usuário" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Senha" required minlength="6">
             </div>
-            
+
             <button type="submit" name="add_instructor" class="btn-admin btn-admin-alt">Criar Instrutor</button>
         </form>
 
@@ -376,9 +376,9 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
                 </thead>
                 <tbody>
                     <?php
-                    $instructors = $db->query("SELECT instructors.*, academies.name as academy_name, users.email 
-                                               FROM instructors 
-                                               LEFT JOIN academies ON instructors.academy_id = academies.id 
+                    $instructors = $db->query("SELECT instructors.*, academies.name as academy_name, users.email
+                                               FROM instructors
+                                               LEFT JOIN academies ON instructors.academy_id = academies.id
                                                LEFT JOIN users ON users.instructor_id = instructors.id
                                                ORDER BY instructors.name");
                     while ($inst = $instructors->fetchArray(SQLITE3_ASSOC)): ?>
@@ -416,9 +416,9 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
                 </thead>
                 <tbody>
                     <?php
-                    $schedules = $db->query("SELECT schedules.*, academies.name as academy_name, instructors.name as instructor_name 
-                                             FROM schedules 
-                                             JOIN academies ON schedules.academy_id = academies.id 
+                    $schedules = $db->query("SELECT schedules.*, academies.name as academy_name, instructors.name as instructor_name
+                                             FROM schedules
+                                             JOIN academies ON schedules.academy_id = academies.id
                                              LEFT JOIN instructors ON schedules.instructor_id = instructors.id
                                              ORDER BY schedules.day, schedules.time");
                     while ($sch = $schedules->fetchArray(SQLITE3_ASSOC)): ?>

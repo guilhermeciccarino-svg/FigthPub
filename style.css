@@ -8,7 +8,7 @@
 /* ================= VARIÁVEIS DE TEMA ================= */
 /* 1. TEMA ESCURO (Padrão atual do Fight Pub) */
 :root {
-    --page-bg:     #0a0a0a;
+    --page-bg:     #0f0f0f;
     --card-bg:     #111111;
     --card-bg2:    #161616;
     --card-border: #222222;
@@ -20,7 +20,7 @@
     --text-muted:  #888888;
     --border:      #222222;
     --header-bg:   rgba(0, 0, 0, 0.98);
-    --input-bg:    #0d0d0d;
+    --input-bg:    #1a1a1a;
 }
 
 /* 2. AUTOMAÇÃO: SE O USUÁRIO PREFERIR O TEMA CLARO, O CSS INVERTE AS VARIÁVEIS */
@@ -478,7 +478,7 @@ label {
 
 input[type="text"], input[type="email"], input[type="password"], textarea, select {
     color: var(--text-main);
-    width: 100%; padding: 0.8rem; border: 1px solid #cccccc; border-radius: 4px;
+    width: 100%; padding: 1rem; border: 1px solid #cccccc; border-radius: 8px;
     font-size: 1rem; font-family: 'Roboto', sans-serif; background-color: var(--input-bg); transition: all 0.3s;
 }
 
@@ -1395,7 +1395,7 @@ main > *:nth-child(4) { animation-delay: 0.22s; }
 :root {
     --gold:        #d4af37;
     --gold-light:  #f5c518;
-    --page-bg:     #0a0a0a;
+    --page-bg:     #0f0f0f;
     --card-bg:     #111111;
     --card-bg2:    #161616;
     --card-border: #222222;

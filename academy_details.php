@@ -161,7 +161,7 @@ include 'header.php';
                 <?php if (!empty($academy['avatar'])): ?>
                     <img src="<?php echo htmlspecialchars($academy['avatar']); ?>" alt="Avatar Academia" style="width: 100%; height: 100%; object-fit: cover;">
                 <?php else: ?>
-                    <span style="font-size: 3rem;">🏛️</span>
+
                 <?php endif; ?>
             </div>
 
@@ -183,7 +183,7 @@ include 'header.php';
             <?php endif; ?>
         </div>
         <h1><?php echo htmlspecialchars($academy['name']); ?></h1>
-        <div class="address">📍 <?php echo htmlspecialchars($academy['address']); ?></div>
+        <div class="address"> <?php echo htmlspecialchars($academy['address']); ?></div>
         <div class="description"><?php echo nl2br(htmlspecialchars($academy['description'])); ?></div>
 
         <?php if (!empty($academy['address'])): ?>
@@ -210,14 +210,14 @@ include 'header.php';
             $has_instructors = true;
         ?>
         <div class="instructor-card-pro">
-            <span class="instructor-icon">🥋</span>
+
             <h3><?php echo htmlspecialchars($inst['name']); ?></h3>
             <p><?php echo htmlspecialchars($inst['bio']); ?></p>
         </div>
         <?php endwhile; ?>
         <?php if (!$has_instructors): ?>
         <div class="fp-empty-state" style="grid-column:1/-1">
-            <span>🥋</span><p>Ainda sem instrutores cadastrados.</p>
+            <p>Ainda sem instrutores cadastrados.</p>
         </div>
         <?php endif; ?>
     </div>
@@ -233,7 +233,7 @@ include 'header.php';
         if ($my_academy == $academy_id):
     ?>
     <div class="add-class-form-card">
-        <h3>➕ Adicionar Nova Aula</h3>
+        <h3> Adicionar Nova Aula</h3>
         <form method="POST" class="add-class-form-inner">
             <div class="form-group">
                 <label>Dia da Semana</label>
@@ -269,11 +269,11 @@ include 'header.php';
                 ?>
                 <div class="class-card-pro <?php echo $inscrito ? 'registered' : ''; ?>">
                     <?php if ($inscrito): ?>
-                    <span class="class-confirmed">✓ CONFIRMADO</span>
+                    <span class="class-confirmed"> CONFIRMADO</span>
                     <?php endif; ?>
                     <h4><?php echo htmlspecialchars($aula['class_type']); ?></h4>
-                    <p class="class-time">🕒 <?php echo htmlspecialchars($aula['time']); ?></p>
-                    <p class="class-instructor">👤 <?php echo htmlspecialchars($aula['instructor_name'] ?? 'Instrutor'); ?></p>
+                    <p class="class-time"> <?php echo htmlspecialchars($aula['time']); ?></p>
+                    <p class="class-instructor"> <?php echo htmlspecialchars($aula['instructor_name'] ?? 'Instrutor'); ?></p>
                     <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user' && !$inscrito): ?>
                     <form method="POST" style="margin:0">
                         <input type="hidden" name="schedule_id" value="<?php echo $aula['id']; ?>">
@@ -308,7 +308,7 @@ include 'header.php';
         <!-- FORMULÁRIO DE AVALIAÇÃO (só para alunos) -->
         <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user'): ?>
         <div class="review-form-card">
-            <h3><?php echo $my_review ? '✏️ Atualizar a minha avaliação' : '⭐ Deixar avaliação'; ?></h3>
+            <h3><?php echo $my_review ? ' Atualizar a minha avaliação' : '⭐ Deixar avaliação'; ?></h3>
             <form method="POST" id="review-form">
                 <input type="hidden" name="add_review" value="1">
                 <div class="star-picker" id="starPicker">
@@ -345,7 +345,7 @@ include 'header.php';
             <div class="review-card">
                 <div class="review-card-top">
                     <div class="review-user">
-                        <span class="review-avatar">👤</span>
+
                         <strong>@<?php echo htmlspecialchars($rev['username']); ?></strong>
                     </div>
                     <div class="review-meta">
@@ -360,7 +360,7 @@ include 'header.php';
             <?php endwhile; ?>
             <?php if (!$has_reviews): ?>
             <div class="fp-empty-state">
-                <span>💬</span>
+
                 <p>Ainda sem avaliações. Sê o primeiro a avaliar!</p>
             </div>
             <?php endif; ?>
