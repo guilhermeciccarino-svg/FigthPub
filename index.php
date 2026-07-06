@@ -572,17 +572,25 @@ $uid  = (int)$_SESSION['user_id'];
 $badge_class = 'badge-user';   $badge_label = 'Atleta';         $welcome_icon = '';
 if ($role == 'admin')      { $badge_class = 'badge-admin';      $badge_label = 'Administrador'; $welcome_icon = ''; }
 if ($role == 'instructor') { $badge_class = 'badge-instructor'; $badge_label = 'Instrutor';     $welcome_icon = ''; }
+
+$stmt_av = $db->prepare("SELECT avatar FROM users WHERE id = :id");
+$stmt_av->bindValue(':id', $uid, SQLITE3_INTEGER);
+$res_av = $stmt_av->execute()->fetchArray(SQLITE3_ASSOC);
+$avatar_url = !empty($res_av['avatar']) ? $res_av['avatar'] : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
 ?>
     <div class="dash-welcome">
         <div class="dash-welcome-text">
-            <h1><?php echo $welcome_icon; ?> Olá, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
-            <p>Hoje é <strong style="color:#fff"><?php echo $hoje_nome; ?>-feira</strong>.
+            <img src="<?php echo htmlspecialchars($avatar_url); ?>" class="dash-avatar" alt="Avatar">
+            <div class="dash-welcome-text-inner">
+                <h1><?php echo $welcome_icon; ?> Olá, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
+                <p>Hoje é <strong style="color:#fff"><?php echo $hoje_nome; ?>-feira</strong>.
             <?php
             if ($role == 'admin')          echo 'O tatame está sob o teu comando.';
             elseif ($role == 'instructor') echo 'Os teus alunos contam contigo.';
             else                           echo 'Bom treino — um dia de cada vez.';
             ?>
-            </p>
+                </p>
+            </div>
         </div>
         <span class="dash-welcome-badge <?php echo $badge_class; ?>"><?php echo $badge_label; ?></span>
     </div>

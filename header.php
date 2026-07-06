@@ -77,6 +77,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user') {
                 <li><a href="graduation.php">Graduação</a></li>
                 <li><a href="events.php">Eventos</a></li>
                 <?php if(isset($_SESSION['user_id'])): ?>
+                    <li><a href="chat.php">Chat</a></li>
                     <?php if($_SESSION['role'] == 'user'): ?>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle">Perfil <span class="arrow">▼</span></a>

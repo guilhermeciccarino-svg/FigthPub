@@ -120,6 +120,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt_ds->execute();
     }
 
+    // EXCLUIR UTILIZADOR
+    elseif (isset($_POST['delete_user'])) {
+        $id = (int)$_POST['user_id'];
+        $stmt_du = $db->prepare("DELETE FROM users WHERE id = :id");
+        $stmt_du->bindValue(':id', $id, SQLITE3_INTEGER);
+        $stmt_du->execute();
+    }
+
     // F. ADICIONAR EVENTO / CAMPEONATO
     elseif (isset($_POST['add_event'])) {
         $stmt_ev = $db->prepare("INSERT INTO events (name, martial_art_type, description, rules, weight_classes, belt_ranks)
@@ -431,6 +439,37 @@ $events = $db->query("SELECT * FROM events ORDER BY id DESC");
                                 <form method="POST" class="form-inline">
                                     <input type="hidden" name="schedule_id" value="<?php echo $sch['id']; ?>">
                                     <button type="submit" name="delete_schedule" class="btn-text-danger" onclick="return confirm('Remover esta aula da grade?')">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="admin-section section-users">
+        <h2>Gerenciar Utilizadores</h2>
+        <div style="overflow-x: auto;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome de Utilizador</th>
+                        <th>Email</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $users = $db->query("SELECT id, username, email FROM users WHERE role = 'user' ORDER BY username");
+                    while ($user = $users->fetchArray(SQLITE3_ASSOC)): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($user['username']); ?></td>
+                            <td><?php echo htmlspecialchars($user['email']); ?></td>
+                            <td>
+                                <form method="POST" class="form-inline">
+                                    <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+                                    <button type="submit" name="delete_user" class="btn-text-danger" onclick="return confirm('Tem certeza que deseja apagar este utilizador e todos os seus dados?')">Excluir</button>
                                 </form>
                             </td>
                         </tr>
