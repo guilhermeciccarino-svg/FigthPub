@@ -909,7 +909,7 @@ footer a:hover { color: var(--white); }
 }
 .dash-welcome-text { display: flex; align-items: center; }
 .dash-welcome-text-inner { display: flex; flex-direction: column; }
-.dash-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #d32f2f; padding: 3px; margin-right: 20px; }
+.dash-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 15px; }
 .dash-welcome-text h1 { color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.9rem; border: none; margin: 0 0 0.3rem; text-transform: uppercase; }
 .dash-welcome-text p { color: #888; margin: 0; font-size: 1rem; }
 .dash-welcome-badge { background: #d32f2f; color: #fff; font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 3px; white-space: nowrap; }
