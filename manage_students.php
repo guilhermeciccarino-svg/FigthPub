@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cc_inserido = trim($_POST['cc'] ?? '');
 
     if ($student_user_id === 0 || empty($cc_inserido)) {
-        $mensagem = "<div class='alert-danger'>⚠️ Preencha todos os campos.</div>";
+        $mensagem = "<div class='alert-danger'> Preencha todos os campos.</div>";
     } else {
         // VALIDAR CC: Verifica se o CC bate com o que o aluno registou no perfil dele
         $check_cc = $db->prepare("SELECT CC FROM students WHERE user_id = :uid LIMIT 1");
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $check_notif->bindValue(':aid', $academy_id, SQLITE3_INTEGER);
 
             if ($check_notif->execute()->fetchArray()) {
-                $mensagem = "<div class='alert-danger'>⚠️ Este aluno já tem um convite em espera.</div>";
+                $mensagem = "<div class='alert-danger'> Este aluno já tem um convite em espera.</div>";
             } else {
                 // Criar a notificação que o aluno verá no painel dele
                 $notif_stmt = $db->prepare("INSERT INTO notifications (user_id, sender_id, academy_id, type, message, status) VALUES (:uid, :sid, :aid, 'invite', 'Foste convidado para treinar connosco!', 'pending')");
@@ -60,11 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $notif_stmt->bindValue(':aid', $academy_id, SQLITE3_INTEGER);
 
                 if ($notif_stmt->execute()) {
-                    $mensagem = "<div class='alert-success'>📨 Convite enviado! O aluno precisa de aceitar no perfil dele.</div>";
+                    $mensagem = "<div class='alert-success'> Convite enviado! O aluno precisa de aceitar no perfil dele.</div>";
                 }
             }
         } else {
-            $mensagem = "<div class='alert-danger'>🔒 <strong>Erro de Validação:</strong> O CC não coincide com os dados do utilizador.</div>";
+            $mensagem = "<div class='alert-danger'> <strong>Erro de Validação:</strong> O CC não coincide com os dados do utilizador.</div>";
         }
     }
 }
@@ -90,14 +90,14 @@ $active_students = $stmt_active->execute();
 <main style="max-width: 900px; margin: 0 auto; padding: 20px;">
 
     <div class="panel-banner" style="margin-bottom: 2rem;">
-        <h1 style="margin:0;">👨‍🎓 Gerir Alunos e Inscrições</h1>
+        <h1 style="margin:0;">‍ Gerir Alunos e Inscrições</h1>
         <p>Adicione novos talentos e controle a sua base de atletas.</p>
     </div>
 
     <?php echo $mensagem; ?>
 
     <div class="admin-section">
-        <h3>📨 Enviar Novo Convite</h3>
+        <h3> Enviar Novo Convite</h3>
         <form method="POST" class="invite-form-grid">
             <div class="form-group" style="margin:0;">
                 <label>Utilizador:</label>
@@ -116,7 +116,7 @@ $active_students = $stmt_active->execute();
         </form>
     </div>
 
-    <h2 style="color: #4caf50; border-bottom: 2px solid #28a745; padding-bottom: 10px; margin-top: 2.5rem;">✅ Alunos Matriculados</h2>
+    <h2 style="color: #4caf50; border-bottom: 2px solid #28a745; padding-bottom: 10px; margin-top: 2.5rem;"> Alunos Matriculados</h2>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 20px;">
         <?php
         $has_students = false;
@@ -126,8 +126,8 @@ $active_students = $stmt_active->execute();
             <div class="student-card">
                 <h4><?php echo htmlspecialchars($s['full_name']); ?></h4>
                 <div class="meta">
-                    <p>📞 <?php echo htmlspecialchars($s['phone']); ?></p>
-                    <p>💳 CC: <?php echo htmlspecialchars($s['CC']); ?></p>
+                    <p> <?php echo htmlspecialchars($s['phone']); ?></p>
+                    <p> CC: <?php echo htmlspecialchars($s['CC']); ?></p>
                     <hr>
                     <p class="emergency"><strong>Emergência:</strong> <?php echo htmlspecialchars($s['emergency_contact']); ?></p>
                 </div>
@@ -137,7 +137,7 @@ $active_students = $stmt_active->execute();
 
     <?php if (!$has_students): ?>
         <div class="fp-empty-state" style="margin-top:1.5rem;">
-            <span>🥋</span>
+
             <p>Ainda não tens alunos matriculados.</p>
         </div>
     <?php endif; ?>

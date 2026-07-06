@@ -252,7 +252,7 @@ include 'header.php';
 
             <!-- CABEÇALHO DO CARD -->
             <div class="register-header-dark">
-                <div class="register-logo">⚔️</div>
+                <div class="register-logo"></div>
                 <h1>Matrícula Oficial</h1>
                 <p>Junta-te à comunidade Fight Pub</p>
             </div>
@@ -261,11 +261,11 @@ include 'header.php';
             <?php if ($message): ?>
                 <?php if ($status === 'error'): ?>
                     <div class="alert-box-dark alert-box-dark-error">
-                        ✖ <?php echo htmlspecialchars(substr($message, 5)); ?>
+                         <?php echo htmlspecialchars(substr($message, 5)); ?>
                     </div>
                 <?php elseif ($status === 'success'): ?>
                     <div class="alert-box-dark alert-box-dark-success">
-                        ✔ <?php echo htmlspecialchars(substr($message, 8)); ?><br><br>
+                         <?php echo htmlspecialchars(substr($message, 8)); ?><br><br>
                         <a href="login.php" style="background:#28a745; color:white; padding:8px 16px; border-radius:4px; text-decoration:none; font-weight:bold; display:inline-block;">Entrar no Tatame →</a>
                     </div>
                 <?php endif; ?>
@@ -275,7 +275,7 @@ include 'header.php';
             <?php if ($status !== 'success'): ?>
             <form method="POST" id="regForm" class="register-form-dark" novalidate>
 
-                <div class="section-divider-dark">👤 Dados Pessoais</div>
+                <div class="section-divider-dark"> Dados Pessoais</div>
 
                 <div class="form-group">
                     <label>Nome Completo</label>
@@ -309,7 +309,7 @@ include 'header.php';
                     </div>
                 </div>
 
-                <div class="section-divider-dark">🔐 Dados de Acesso</div>
+                <div class="section-divider-dark"> Dados de Acesso</div>
 
                 <div class="form-row">
                     <div class="form-grid-3" style="grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;">

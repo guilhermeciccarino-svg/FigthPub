@@ -54,7 +54,7 @@ $result = $db->query("SELECT * FROM announcements ORDER BY created_at DESC");
 
 <main style="max-width: 900px; margin: 0 auto; padding: 20px;">
     <div class="admin-header">
-        <h1>📢 Gerir Mural de Avisos</h1>
+        <h1> Gerir Mural de Avisos</h1>
     </div>
 
     <?php echo $mensagem_alerta; ?>
@@ -72,9 +72,9 @@ $result = $db->query("SELECT * FROM announcements ORDER BY created_at DESC");
             <div class="form-group">
                 <label>Tipo / Cor do Aviso:</label>
                 <select name="type" required>
-                    <option value="warning">🟡 Urgente / Atenção</option>
-                    <option value="info">⚪ Informação Geral</option>
-                    <option value="success">🟢 Sucesso / Boas Notícias</option>
+                    <option value="warning"> Urgente / Atenção</option>
+                    <option value="info"> Informação Geral</option>
+                    <option value="success"> Sucesso / Boas Notícias</option>
                 </select>
             </div>
 
@@ -106,9 +106,9 @@ $result = $db->query("SELECT * FROM announcements ORDER BY created_at DESC");
                             <td><strong><?php echo htmlspecialchars($row['title']); ?></strong></td>
                             <td>
                                 <?php
-                                    if($row['type'] == 'warning') echo '🟡 Atenção';
-                                    elseif($row['type'] == 'success') echo '🟢 Sucesso';
-                                    else echo '⚪ Info';
+                                    if($row['type'] == 'warning') echo ' Atenção';
+                                    elseif($row['type'] == 'success') echo ' Sucesso';
+                                    else echo ' Info';
                                 ?>
                             </td>
                             <td style="text-align:center">

@@ -39,7 +39,7 @@ include 'header.php';
 <main>
     <div class="auth-container">
         <div class="auth-header">
-            <h1>🥊 Entrar</h1>
+            <h1> Entrar</h1>
             <p>Acesse sua conta para continuar.</p>
         </div>
 
@@ -54,12 +54,12 @@ include 'header.php';
                 <label for="username">Nome de Usuário:</label>
                 <input type="text" id="username" name="username" required placeholder="Digite seu usuário">
             </div>
-            
+
             <div class="form-group">
                 <label for="password">Senha:</label>
                 <input type="password" id="password" name="password" required placeholder="Digite sua senha">
             </div>
-            
+
             <input type="submit" value="Entrar no Tatame" style="width: 100%; margin-top: 1rem; font-size: 1.1rem; padding: 1rem;">
         </form>
 

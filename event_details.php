@@ -81,26 +81,26 @@ function formatar_lista($texto_do_banco) {
     </div>
 
     <div class="event-detail-body">
-        <h2>📖 Sobre o Torneio</h2>
+        <h2> Sobre o Torneio</h2>
         <p><?php echo nl2br(htmlspecialchars($event['description'])); ?></p>
     </div>
 
     <div class="event-info-grid">
 
         <div class="event-info-card">
-            <h3><span>⚖️</span> Livro de Regras</h3>
+            <h3> Livro de Regras</h3>
             <hr>
             <?php echo formatar_lista($event['rules']); ?>
         </div>
 
         <div class="event-info-card">
-            <h3><span>⚖️</span> Tabela de Pesos</h3>
+            <h3> Tabela de Pesos</h3>
             <hr>
             <?php echo formatar_lista($event['weight_classes']); ?>
         </div>
 
         <div class="event-info-card">
-            <h3><span>🥋</span> Graduações</h3>
+            <h3> Graduações</h3>
             <hr>
             <?php echo formatar_lista($event['belt_ranks']); ?>
         </div>
@@ -109,7 +109,7 @@ function formatar_lista($texto_do_banco) {
 
 
     <div id="galeria" style="margin-top: 3rem; border-top: 1px solid #333; padding-top: 2rem;">
-        <h2 style="margin-bottom: 1.5rem; text-align: center;">📸 Galeria Oficial do Evento</h2>
+        <h2 style="margin-bottom: 1.5rem; text-align: center;"> Galeria Oficial do Evento</h2>
         <div style="column-count: 2; column-gap: 20px;">
             <?php while ($photo = $gallery_res->fetchArray(SQLITE3_ASSOC)):
                 $gal_id = $photo['id'];
@@ -126,14 +126,14 @@ function formatar_lista($texto_do_banco) {
                     <?php endif; ?>
 
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                        <span style="color: #ffb74d; font-weight: bold;">★ <?php echo $avg; ?> <small style="color: #888;">(<?php echo $avg_stmt['total']; ?> avaliações)</small></span>
+                        <span style="color: #ffb74d; font-weight: bold;"> <?php echo $avg; ?> <small style="color: #888;">(<?php echo $avg_stmt['total']; ?> avaliações)</small></span>
                     </div>
 
                     <div style="max-height: 150px; overflow-y: auto; margin-bottom: 15px; border-top: 1px solid #222; padding-top: 10px;">
                         <?php while ($rev = $rev_stmt->fetchArray(SQLITE3_ASSOC)): ?>
                             <div style="margin-bottom: 8px; font-size: 0.85rem;">
                                 <strong style="color: #ccc;">@<?php echo htmlspecialchars($rev['username']); ?></strong>
-                                <span style="color: #ffb74d;">[<?php echo $rev['rating']; ?>★]</span>
+                                <span style="color: #ffb74d;">[<?php echo $rev['rating']; ?>]</span>
                                 <?php if (!empty($rev['comment'])): ?>
                                     <br><span style="color: #999;">"<?php echo htmlspecialchars($rev['comment']); ?>"</span>
                                 <?php endif; ?>
@@ -148,11 +148,11 @@ function formatar_lista($texto_do_banco) {
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <label style="font-size: 0.85rem;">Nota:</label>
                                 <select name="rating" style="padding: 3px; background: #222; color: #fff; border: 1px solid #444;">
-                                    <option value="5">5 ★</option>
-                                    <option value="4">4 ★</option>
-                                    <option value="3">3 ★</option>
-                                    <option value="2">2 ★</option>
-                                    <option value="1">1 ★</option>
+                                    <option value="5">5 </option>
+                                    <option value="4">4 </option>
+                                    <option value="3">3 </option>
+                                    <option value="2">2 </option>
+                                    <option value="1">1 </option>
                                 </select>
                             </div>
                             <input type="text" name="comment" placeholder="Adicionar um comentário..." style="padding: 6px; background: #222; border: 1px solid #444; color: #fff; border-radius: 4px; font-size: 0.85rem;">

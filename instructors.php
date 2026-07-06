@@ -27,14 +27,14 @@ $result = $db->query($query);
 <main>
     <div class="page-hero-bar" style="margin: -3rem -2rem 3rem;">
         <div class="page-hero-bar-inner">
-            <h1>🥋 Nossos Mestres</h1>
+            <h1> Nossos Mestres</h1>
             <p>Conheça a elite de instrutores que vai forjar o seu caminho no tatame.</p>
             <form class="fp-search-form" method="GET">
                 <input type="text" name="search" placeholder="Buscar por nome ou estilo de luta..." value="<?php echo htmlspecialchars($search); ?>">
-                <button type="submit">🔍 Buscar</button>
+                <button type="submit"> Buscar</button>
             </form>
             <?php if (!empty($search)): ?>
-            <a href="instructors.php" class="clear-search">✖ Limpar pesquisa</a>
+            <a href="instructors.php" class="clear-search"> Limpar pesquisa</a>
             <?php endif; ?>
         </div>
     </div>
@@ -50,11 +50,11 @@ $result = $db->query($query);
                     <?php if (!empty($instructor['user_avatar'])): ?>
                         <img src="<?php echo htmlspecialchars($instructor['user_avatar']); ?>" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
                     <?php else: ?>
-                        <span class="instructor-icon" style="margin: 0; font-size: 2.5rem;">🥋</span>
+
                     <?php endif; ?>
                 </div>
                 <h3><?php echo htmlspecialchars($instructor['name']); ?></h3>
-                <p class="academy-card-addr">📍 <?php echo htmlspecialchars($instructor['academy_name']); ?></p>
+                <p class="academy-card-addr"> <?php echo htmlspecialchars($instructor['academy_name']); ?></p>
                 <p><?php echo nl2br(htmlspecialchars($instructor['bio'])); ?></p>
             </div>
         <?php endwhile; ?>
@@ -62,7 +62,7 @@ $result = $db->query($query);
 
     <?php if ($count === 0): ?>
         <div class="fp-empty-state" style="margin-top: 3rem;">
-            <span>🥊</span>
+
             <p>Nenhum mestre encontrado. Tente buscar por outro nome ou estilo de luta.</p>
             <?php if (!empty($search)): ?>
                 <a href="instructors.php" class="btn" style="margin-top: 1rem;">Limpar Busca</a>

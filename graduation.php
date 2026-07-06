@@ -11,7 +11,7 @@ include 'header.php';
 <main style="max-width: 1000px; margin: 0 auto; padding: 20px;">
 
     <div class="graduation-header">
-        <h1>🥋 Dia da Graduação</h1>
+        <h1> Dia da Graduação</h1>
         <p>Parabéns aos alunos que estão se preparando para o exame de faixa! Este é um momento especial para celebrar seu progresso, suor e conquistas no tatame.</p>
     </div>
 
@@ -101,11 +101,11 @@ include 'header.php';
    <?php else: ?>
 
         <div class="announcement-banner">
-            📢 <strong>Próximas Graduações:</strong> As datas dos próximos exames de faixa serão anunciadas pelo seu Mestre. Fique atento ao mural da academia!
+             <strong>Próximas Graduações:</strong> As datas dos próximos exames de faixa serão anunciadas pelo seu Mestre. Fique atento ao mural da academia!
         </div>
 
         <div class="graduation-card" style="border-top-color: var(--gold);">
-            <h3 style="text-align: center;">🏆 Mural de Honra: Últimas Graduações</h3>
+            <h3 style="text-align: center;"> Mural de Honra: Últimas Graduações</h3>
             <p style="text-align: center; color: #888; margin-bottom: 20px;">Parabéns aos nossos atletas pelo suor e dedicação!</p>
 
             <div style="overflow-x: auto;">
