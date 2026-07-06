@@ -461,6 +461,14 @@ form {
     border-top: 5px solid var(--primary);
 }
 
+.form-inline {
+    background-color: transparent;
+    border-top: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+}
+
 .form-group { margin-bottom: 1.5rem; }
 
 label {
@@ -571,7 +579,7 @@ textarea { height: 120px; resize: vertical; }
 
 /* Autenticação (Login/Registro) */
 .auth-container { max-width: 450px; margin: 4rem auto; padding: 3rem; border-radius: 8px; border-top: 6px solid var(--primary); background: var(--white); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-.auth-container form { margin: 0; padding: 0; border: none; box-shadow: none; } 
+.auth-container form { margin: 0; padding: 0; border: none; box-shadow: none; }
 .auth-header { text-align: center; margin-bottom: 2rem; }
 .auth-header h1 { font-size: 2.5rem; border: none; }
 .auth-footer { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
@@ -625,8 +633,8 @@ textarea { height: 120px; resize: vertical; }
 .ranking-header { text-align: center; margin-bottom: 3rem; }
 .ranking-header h1 { font-size: 3rem; border: none; }
 .rank-badge { display: inline-block; background-color: var(--dark); color: var(--white); font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: bold; padding: 0.5rem 1.5rem; border-radius: 4px; margin-bottom: 1rem; }
-.rank-1 .rank-badge { background-color: #ffd700; color: #111; } 
-.rank-2 .rank-badge { background-color: #c0c0c0; color: #111; } 
+.rank-1 .rank-badge { background-color: #ffd700; color: #111; }
+.rank-2 .rank-badge { background-color: #c0c0c0; color: #111; }
 .rank-3 .rank-badge { background-color: #cd7f32; color: var(--white); }
 .total-score { width: 100%; border-top: 1px solid var(--card-border); margin-top: 0.5rem; padding-top: 0.5rem; font-size: 1.1rem; color: #ccc; }
 .total-score span { color: var(--primary); font-size: 1.4rem; font-weight: bold; }
@@ -662,30 +670,30 @@ footer a:hover { color: var(--white); }
         box-shadow: none;
     }
 
-    .logo img { 
-        width: 60px !important; 
-        height: 60px !important; 
+    .logo img {
+        width: 60px !important;
+        height: 60px !important;
     }
 
-    nav { 
+    nav {
         flex-direction: column;
         padding: 1rem;
     }
 
-    nav ul { 
-        flex-direction: column; 
-        width: 100%; 
-        margin-top: 1rem; 
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
         padding: 0;
         display: none;
     }
 
-    .menu-checkbox:checked ~ ul { 
-        display: flex; 
+    .menu-checkbox:checked ~ ul {
+        display: flex;
     }
 
-    nav ul li { 
-        margin: 0.5rem 0; 
+    nav ul li {
+        margin: 0.5rem 0;
     }
 
     .dropdown-menu {
@@ -702,10 +710,10 @@ footer a:hover { color: var(--white); }
     }
 
     /* Layouts de Grid */
-    .academy-list, .instructor-list, .weekly-calendar, .graduation-content, .feature-grid { 
-        grid-template-columns: 1fr !important; 
+    .academy-list, .instructor-list, .weekly-calendar, .graduation-content, .feature-grid {
+        grid-template-columns: 1fr !important;
     }
-    
+
     h2 { font-size: 1.8rem; }
     .hero h1 { font-size: 2.8rem; }
     .hero { padding: 4rem 1rem; }
@@ -714,8 +722,8 @@ footer a:hover { color: var(--white); }
    ESTILOS DA PÁGINA DE DETALHES DA ACADEMIA
    ========================================================================== */
 .academy-main-container {
-    max-width: 1200px; 
-    margin: 0 auto; 
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
 }
 
@@ -2544,65 +2552,328 @@ body:has(.register-main) {
    CORREÇÃO DO MODO CLARO (LIGHT MODE) E TROCA DE LOGO
    ===================================================================== */
 @media (prefers-color-scheme: light) {
-    
+
     /* Garantir que o fundo geral seja claro */
-    body { 
-        background-color: #f4f4f2 !important; 
+    body {
+        background-color: #f4f4f2 !important;
     }
-    
+
     /* Arrumando o Header: fundo branco, letras e ícones escuros */
     header {
         background-color: rgba(255, 255, 255, 0.98) !important;
         border-bottom: 2px solid #dddddd !important;
     }
-    
-    nav ul li a, .dropdown-toggle { 
-        color: #333333 !important; 
+
+    nav ul li a, .dropdown-toggle {
+        color: #333333 !important;
     }
-    
-    nav ul li a:hover { 
-        color: #d32f2f !important; 
-        background: rgba(0, 0, 0, 0.05) !important; 
+
+    nav ul li a:hover {
+        color: #d32f2f !important;
+        background: rgba(0, 0, 0, 0.05) !important;
     }
-    
+
     .dropdown-menu {
         background-color: rgba(255, 255, 255, 0.98) !important;
         border-top: 2px solid #d32f2f !important;
         box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
     }
-    
-    .dropdown-menu li a { 
-        color: #333333 !important; 
+
+    .dropdown-menu li a {
+        color: #333333 !important;
     }
-    
-    .dropdown-menu li a:hover { 
-        background: rgba(211, 47, 47, 0.1) !important; 
-        color: #d32f2f !important; 
+
+    .dropdown-menu li a:hover {
+        background: rgba(211, 47, 47, 0.1) !important;
+        color: #d32f2f !important;
     }
 
     /* 3. TROCA DE LOGO PARA A VERSÃO CINZA/CLARA (SEM MEXER NO HTML) */
     .logo a img {
         content: url('FigthPubClaro.png') !important;
     }
-    
+
+
+    /* 5. LIGHT MODE FIXES FOR LANDING PAGE AND DASHBOARD */
+    .fp-hero, .fp-how-section {
+        background: #f4f4f2 !important;
+    }
+
+    .fp-hero-eyebrow, .fp-cs-tag, .fp-how-eyebrow, .fp-cta-eyebrow {
+        color: var(--gold) !important;
+    }
+
+    .fp-hero h1 span {
+        color: var(--gold) !important;
+    }
+
+    .fp-hero h1, .fp-hero-sub, .fp-carousel-header h2, .fp-carousel-header p, .fp-how-header h2, .fp-how-step h3, .fp-manifesto-text, .fp-preview-title, .fp-preview-sub, .fp-cta h2, .fp-cta p {
+        color: #111111 !important;
+    }
+
+    .fp-how-num {
+        color: #e0ded9 !important;
+    }
+
+    .fp-btn-primary, .fp-cta-btn-main {
+        background: var(--gold) !important;
+        color: #fff !important;
+    }
+
+    .fp-btn-primary:hover, .fp-cta-btn-main:hover {
+        background: var(--gold-light) !important;
+        box-shadow: 0 8px 24px rgba(184, 146, 20, 0.4) !important;
+    }
+
+    .fp-btn-ghost, .fp-cta-btn-ghost {
+        border-color: #333 !important;
+        color: #333 !important;
+    }
+
+    .fp-btn-ghost:hover, .fp-cta-btn-ghost:hover {
+        border-color: var(--gold) !important;
+        color: var(--gold) !important;
+    }
+
+    .fp-stats-bar {
+        background: var(--gold) !important;
+    }
+
+    .fp-carousel-section, .fp-manifesto, .fp-preview, .fp-cta {
+        background: #ffffff !important;
+        border-top: 1px solid #e0ded9 !important;
+        border-bottom: 1px solid #e0ded9 !important;
+    }
+
+    .fp-carousel-header {
+        background: #fcfbfa !important;
+        border-bottom: 1px solid #e0ded9 !important;
+    }
+
+    .fp-cs-left {
+        background: #fcfbfa !important;
+    }
+
+    .fp-cs-right {
+        background: #ffffff !important;
+    }
+
+    .fp-cs-content h3 {
+        color: #111 !important;
+    }
+
+    .fp-cs-content p {
+        color: #555 !important;
+    }
+
+    .fp-cs-link {
+        color: var(--gold) !important;
+        border-bottom-color: var(--gold) !important;
+    }
+
+    .fp-cs-link:hover {
+        color: #111 !important;
+        border-color: #111 !important;
+    }
+
+    .fp-cs-arrow {
+        background: rgba(184, 146, 20, 0.9) !important;
+    }
+
+    .fp-cs-arrow:hover {
+        background: var(--gold) !important;
+    }
+
+    .fp-how-connector {
+        background: linear-gradient(90deg, var(--gold), #d4af37) !important;
+    }
+
+    .fp-manifesto-quote-mark {
+        color: var(--gold) !important;
+    }
+
+    .fp-manifesto::before {
+        background: linear-gradient(90deg, transparent, var(--gold), transparent) !important;
+    }
+
+    .fp-academy-card {
+        background: #ffffff !important;
+        border-color: #e0ded9 !important;
+    }
+
+    .fp-academy-card::before {
+        background: var(--gold) !important;
+    }
+
+    .fp-academy-card h3 {
+        color: #111 !important;
+    }
+
+    .fp-lock-overlay {
+        background: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    .fp-lock-overlay p {
+        color: #111 !important;
+    }
+
+    .fp-lock-overlay a {
+        background: var(--gold) !important;
+    }
+
+    /* DASHBOARD ELEMENTS */
+    .dash-welcome {
+        background: #ffffff !important;
+        border-left-color: var(--gold) !important;
+        border: 1px solid #e0ded9;
+    }
+
+    .dash-welcome-text h1 {
+        color: #111 !important;
+    }
+
+    .dash-welcome-text p {
+        color: #555 !important;
+    }
+
+    .dash-welcome-badge {
+        background: var(--gold) !important;
+        color: #fff !important;
+        border-color: var(--gold) !important;
+    }
+
+    .dash-stat-card {
+        background: #ffffff !important;
+        border: 1px solid #e0ded9 !important;
+        border-top: 4px solid #111 !important;
+    }
+
+    .dash-stat-card.red {
+        border-top-color: var(--gold) !important;
+    }
+
+    .dash-stat-card.red .dash-stat-num {
+        color: var(--gold) !important;
+    }
+
+    .dash-stat-num {
+        color: #111 !important;
+    }
+
+    .dash-panel {
+        background: #ffffff !important;
+        border: 1px solid #e0ded9 !important;
+    }
+
+    .dash-panel-header {
+        background: #f5f4f0 !important;
+        border-bottom: 1px solid #e0ded9 !important;
+    }
+
+    .dash-panel-header h2 {
+        color: #111 !important;
+    }
+
+    .dash-panel-header a {
+        color: var(--gold) !important;
+    }
+
+    .dash-panel-body {
+        color: #555 !important;
+    }
+
+    .dash-shortcut {
+        background: #f5f4f0 !important;
+        border-color: #e0ded9 !important;
+    }
+
+    .dash-shortcut:hover {
+        background: var(--gold) !important;
+        border-color: var(--gold) !important;
+    }
+
+    .dash-shortcut span {
+        color: #111 !important;
+    }
+
+    .dash-shortcut:hover span {
+        color: #fff !important;
+    }
+
+    .dash-shortcut small {
+        color: #555 !important;
+    }
+
+    .dash-shortcut:hover small {
+        color: #fff !important;
+    }
+
+    .aviso-item {
+        background: #f5f4f0 !important;
+        border-left-color: #ccc !important;
+    }
+
+    .aviso-item strong {
+        color: #111 !important;
+    }
+
+    .aviso-item p {
+        color: #555 !important;
+    }
+
+    .aviso-item small {
+        color: #888 !important;
+    }
+
+    .aula-item {
+        border-bottom-color: #e0ded9 !important;
+    }
+
+    .aula-time {
+        color: var(--gold) !important;
+    }
+
+    .aula-info strong {
+        color: #111 !important;
+    }
+
+    .aula-info span {
+        color: #666 !important;
+    }
+
+    .announcement-card {
+        background: #f5f4f0 !important;
+    }
+
+    .announcement-card h4 {
+        color: #111 !important;
+    }
+
+    .announcement-card p {
+        color: #555 !important;
+    }
+
+    .dash-empty {
+        color: #888 !important;
+    }
     /* 4. VOLTANDO OS TEXTOS INLINE PARA ESCURO NO MODO CLARO */
-    h1[style*="color: #111"], 
-    h2[style*="color: #111"], 
-    h3[style*="color: #111"], 
+    h1[style*="color: #111"],
+    h2[style*="color: #111"],
+    h3[style*="color: #111"],
     div[style*="color: #111"],
     span[style*="color: #111"] {
         color: #111111 !important;
     }
 
-    p[style*="color: #555"], 
-    p[style*="color: #666"], 
-    div[style*="color: #666"], 
+    p[style*="color: #555"],
+    p[style*="color: #666"],
+    div[style*="color: #666"],
     li[style*="color: #444"] {
         color: #555555 !important;
     }
 
     /* Voltando as caixas dos eventos para a cor clara original */
-    div[style*="background: #fff"], 
+    div[style*="background: #fff"],
     div[style*="background: #fdfdfd"],
     div[style*="background: #f9f9f9"],
     div[style*="background-color: #fff"] {
