@@ -45,6 +45,12 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user') {
             <input type="checkbox" id="menu-toggle" class="menu-checkbox">
             <label for="menu-toggle" class="menu-icon">&#9776;</label>
             <ul>
+                <li><a href="index.php">Início</a></li>
+                <li><a href="academies.php">Academias</a></li>
+                <li><a href="instructors.php">Instrutores</a></li>
+                <li><a href="graduation.php">Graduação</a></li>
+                <li><a href="events.php">Eventos</a></li>
+
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <?php if($_SESSION['role'] == 'user'): ?>
                         <li class="nav-notifications">
@@ -71,11 +77,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user') {
                             <?php endif; ?>
                         </li>
                     <?php endif; ?>
-<li><a href="index.php">Início</a></li>
-                <li><a href="academies.php">Academias</a></li>
-                <li><a href="instructors.php">Instrutores</a></li>
-                <li><a href="graduation.php">Graduação</a></li>
-                <li><a href="events.php">Eventos</a></li>
+
                     <?php if($_SESSION['role'] == 'user'): ?>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle">Perfil <span class="arrow">▼</span></a>
