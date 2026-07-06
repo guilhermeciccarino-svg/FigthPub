@@ -462,6 +462,12 @@ form {
 }
 
 .form-inline {
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+
+    display: inline-block;
+    width: auto;
     background-color: transparent;
     border-top: none;
     margin: 0;
