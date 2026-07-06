@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $db->exec('COMMIT');
                 $message = 'sucesso:Conta criada com sucesso! Pode fazer login agora.';
                 $status  = 'success';
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $db->exec('ROLLBACK');
                 $message = 'erro:Erro interno. Tente novamente.';
                 $status  = 'error';

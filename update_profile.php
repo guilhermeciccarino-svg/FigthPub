@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $db->exec('COMMIT');
                 $message = 'sucesso:Dados atualizados com sucesso!';
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $db->exec('ROLLBACK');
                 $message = 'erro:Erro interno ao guardar os dados.';
             }
