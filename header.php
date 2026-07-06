@@ -20,7 +20,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user') {
         }
         $pending_count = count($notifs);
         $db_header->close();
-    } catch(Exception $e) {
+    } catch(Throwable $e) {
         // Ignora erros no header para não quebrar o layout
     }
 }
