@@ -139,7 +139,6 @@ $stat_eventos   = $db->querySingle("SELECT COUNT(*) FROM events") ?: 0;
                         <div class="fp-cs-img-overlay"></div>
                     </div>
                     <div class="fp-cs-content fp-cs-right">
-                        <span class="fp-cs-icon">🔔</span>
                         <span class="fp-cs-tag">05 / 06</span>
                         <h3>Convites</h3>
                         <p>Sistema de convites seguro — o instrutor valida o Cartão de Cidadão do atleta antes de o admitir na academia.</p>
