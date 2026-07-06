@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $db->exec('COMMIT');
             $msg_sucesso = "Instrutor e login criados com sucesso!";
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             // Se falhar (ex: username repetido), cancela tudo para não deixar dados pela metade
             $db->exec('ROLLBACK');
             $msg_erro = "Erro ao criar instrutor: Já existe um utilizador com esse Username ou Email.";

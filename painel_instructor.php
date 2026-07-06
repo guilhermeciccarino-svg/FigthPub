@@ -11,7 +11,7 @@ include 'header.php';
 
 try {
     $db = new SQLite3('academies.db');
-} catch (Exception $e) {
+} catch (Throwable $e) {
     die("<div class='alert-danger'>Erro ao conectar ao banco de dados: " . $e->getMessage() . "</div>");
 }
 

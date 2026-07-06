@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['msg_erro'] = "Ocorreu um erro ao tentar guardar a graduação.";
         }
         
-    } catch (Exception $e) {
+    } catch (Throwable $e) {
         $_SESSION['msg_erro'] = "Erro de sistema: " . $e->getMessage();
     }
 
