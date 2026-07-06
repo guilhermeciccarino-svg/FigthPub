@@ -107,7 +107,6 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 'user') {
                     <?php endif; ?>
                     
                     <li><a href="logout.php">Sair</a></li>
-                <?php endif; ?>
                 <?php else: ?>
                     <li><a href="login.php">Entrar</a></li>
                     <li><a href="register.php">Registrar</a></li>
